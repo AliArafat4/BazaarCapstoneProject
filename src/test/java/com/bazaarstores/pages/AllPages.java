@@ -3,6 +3,7 @@ package com.bazaarstores.pages;
 import org.openqa.selenium.WebDriver;
 
 public class AllPages {
+    //comment
     private WebDriver driver;
     
     private LoginPage loginPage;
