@@ -15,9 +15,6 @@ public class DashboardPage extends BasePage {
     private final By logoutButton = By.cssSelector("button:contains('Logout'), a:contains('Logout')");
     private final By userName = By.cssSelector(".user-name, [class*='username']");
 
-    public DashboardPage(WebDriver driver) {
-        super(driver);
-    }
 
     // Navigation Methods
     public void clickProfileLink() {
@@ -34,7 +31,7 @@ public class DashboardPage extends BasePage {
 
     public LoginPage clickLogout() {
         click(logoutButton);
-        return new LoginPage(driver);
+        return new LoginPage();
     }
 
     // Verification Methods

@@ -1,6 +1,11 @@
 @Regression @Login
 Feature: Login Functionality
 
+
+  Background:
+    Given user goes to home page
+
+
   @Smoke @Customer
   Scenario: Successful login with valid customer credentials from config
     When user enters valid customer credentials
