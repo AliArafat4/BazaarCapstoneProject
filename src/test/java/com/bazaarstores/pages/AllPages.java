@@ -1,6 +1,10 @@
 package com.bazaarstores.pages;
 
 
+import com.bazaarstores.pages.adminPages.AddUserPage;
+import com.bazaarstores.pages.adminPages.AdminUsersPage;
+
+
 import com.bazaarstores.pages.store_manager_pages.AddProductPage;
 import com.bazaarstores.pages.store_manager_pages.ProductsPage;
 import com.bazaarstores.pages.store_manager_pages.StoreManagerDashboardPage;
@@ -10,11 +14,14 @@ import com.bazaarstores.pages.login_pages.LoginPage;
 import com.bazaarstores.pages.register_pages.RegistrationPage;
 
 
+
 public class AllPages {
 
     private LoginPage loginPage;
     private RegistrationPage registrationPage;
     private DashboardPage dashboardPage;
+    private AdminUsersPage adminUsersPage;
+    private AddUserPage addUserPage;
 
     private StoreManagerDashboardPage storeManagerDashboardPage;
     private ProductsPage productsPage;
@@ -45,6 +52,23 @@ public class AllPages {
     }
 
 
+    public AdminUsersPage getAdminUsersPage() {
+        if (adminUsersPage == null) {
+            adminUsersPage = new AdminUsersPage();
+        }
+        return adminUsersPage;
+    }
+
+
+    public AddUserPage getAddUserPage() {
+        if (addUserPage == null) {
+            addUserPage = new AddUserPage();
+        }
+        return addUserPage;
+    }
+}
+
+
     public StoreManagerDashboardPage getStoreManagerDashboardPage() {
         if (storeManagerDashboardPage == null) {
             storeManagerDashboardPage = new StoreManagerDashboardPage();
@@ -73,3 +97,4 @@ public class AllPages {
         return customerMainPage;
     }
 }
+
