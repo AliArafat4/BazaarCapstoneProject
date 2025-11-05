@@ -1,10 +1,13 @@
 package com.bazaarstores.pages;
 
+import com.bazaarstores.pages.admin_pages.AdminDashboardPage;
+
 public class AllPages {
 
     private LoginPage loginPage;
     private RegistrationPage registrationPage;
     private DashboardPage dashboardPage;
+    private AdminDashboardPage adminDashboardPage;
 
 
 
@@ -27,5 +30,11 @@ public class AllPages {
             dashboardPage = new DashboardPage();
         }
         return dashboardPage;
+    }
+    public AdminDashboardPage getAdminDashboardPage() {
+        if (adminDashboardPage == null) {
+            adminDashboardPage = new AdminDashboardPage();
+        }
+        return adminDashboardPage;
     }
 }
