@@ -1,11 +1,8 @@
 package com.bazaarstores.pages.adminPages;
 
 import com.bazaarstores.pages.BasePage;
-import com.bazaarstores.pages.LoginPage;
 import com.bazaarstores.utilities.ConfigReader;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
 
 public class AddUserPage extends BasePage {
 
@@ -17,10 +14,10 @@ public class AddUserPage extends BasePage {
     private final By submitButton = By.xpath("//button[@type='submit']");
     private final By successToast = By.xpath("//div[contains(text(),'User created successfully')]");
 
-   // Faker faker = new Faker();
+    // Faker faker = new Faker();
 
     public AddUserPage enterName(String name) {
-        sendKeys(this.name,name);
+        sendKeys(this.name, name);
         return this;
     }
 
@@ -30,7 +27,7 @@ public class AddUserPage extends BasePage {
     }
 
     public AddUserPage selectRole(String role) {
-        selectByVisibleText(this.role,role);
+        selectByVisibleText(this.role, role);
         return this;
     }
 
@@ -50,7 +47,7 @@ public class AddUserPage extends BasePage {
     }
 
 
-    public AddUserPage fillUserData(String name, String email,String role) {
+    public AddUserPage fillUserData(String name, String email, String role) {
         return this
                 .enterName(name)
                 .enterEmail(email)

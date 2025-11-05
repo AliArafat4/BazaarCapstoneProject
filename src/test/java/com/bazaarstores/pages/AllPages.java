@@ -6,15 +6,13 @@ import com.bazaarstores.pages.adminPages.AddUserPage;
 import com.bazaarstores.pages.adminPages.AdminUsersPage;
 
 
+import com.bazaarstores.pages.login_pages.LoginPage;
 import com.bazaarstores.pages.store_manager_pages.AddProductPage;
 import com.bazaarstores.pages.store_manager_pages.ProductsPage;
 import com.bazaarstores.pages.store_manager_pages.StoreManagerDashboardPage;
 
 import com.bazaarstores.pages.customer_pages.CustomerMainPage;
 import com.bazaarstores.pages.register_pages.RegistrationPage;
-import com.bazaarstores.pages.adminPages.AddUserPage;
-import com.bazaarstores.pages.adminPages.AdminUsersPage;
-
 
 
 public class AllPages {
@@ -31,10 +29,6 @@ public class AllPages {
     private AddProductPage addProductsPage;
 
     private CustomerMainPage customerMainPage;
-
-    private AdminUsersPage adminUsersPage;
-    private AddUserPage addUserPage;
-
 
     public LoginPage getLoginPage() {
         if (loginPage == null) {
@@ -56,6 +50,7 @@ public class AllPages {
         }
         return dashboardPage;
     }
+
     public AdminDashboardPage getAdminDashboardPage() {
         if (adminDashboardPage == null) {
             adminDashboardPage = new AdminDashboardPage();
@@ -78,8 +73,6 @@ public class AllPages {
         }
         return addUserPage;
     }
-}
-
 
     public StoreManagerDashboardPage getStoreManagerDashboardPage() {
         if (storeManagerDashboardPage == null) {
@@ -107,21 +100,6 @@ public class AllPages {
             customerMainPage = new CustomerMainPage();
         }
         return customerMainPage;
-    }
-
-    public AdminUsersPage getAdminUsersPage() {
-        if (adminUsersPage == null) {
-            adminUsersPage = new AdminUsersPage();
-        }
-        return adminUsersPage;
-    }
-
-
-    public AddUserPage getAddUserPage() {
-        if (addUserPage == null) {
-            addUserPage = new AddUserPage();
-        }
-        return addUserPage;
     }
 
 }
