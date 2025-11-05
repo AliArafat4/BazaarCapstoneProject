@@ -1,7 +1,7 @@
 package com.bazaarstores.pages;
 
+import com.bazaarstores.pages.register_pages.RegistrationPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class LoginPage extends BasePage {
 
@@ -64,7 +64,7 @@ public class LoginPage extends BasePage {
 
     public boolean isValidationMessageDisplayed(String fieldName) {
         fieldName = fieldName.toLowerCase();
-        By field = By.cssSelector("input[name='"+fieldName+"'], input[type='"+fieldName+"']");
+        By field = By.cssSelector("input[name='" + fieldName + "'], input[type='" + fieldName + "']");
         String validationMessage = getValidationMessage(field);
         return validationMessage != null && !validationMessage.isEmpty();
     }
