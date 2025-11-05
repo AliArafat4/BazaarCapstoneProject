@@ -23,8 +23,6 @@ public class AllPages {
     private CustomerMainPage customerMainPage;
 
 
-
-
     public LoginPage getLoginPage() {
         if (loginPage == null) {
             loginPage = new LoginPage();
@@ -67,7 +65,6 @@ public class AllPages {
         }
         return addProductsPage;
     }
-}
 
     public CustomerMainPage getCustomerMainPage() {
         if (customerMainPage == null) {
@@ -76,4 +73,3 @@ public class AllPages {
         return customerMainPage;
     }
 }
-
