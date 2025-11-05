@@ -44,4 +44,17 @@ public class ApiSteps {
         assertNull(jsonPath.getString("find{it.email=='" + email + "'}.email"));
 
     }
+
+    @And("assert the user addition via API")
+    public void assertTheUserAdditionViaAPI() {
+        Response response = RestAssured.given(spec()).get("/users");
+        response.prettyPrint();
+
+        JsonPath jsonPath = response.jsonPath();
+        String actualName = jsonPath.getString("find{it.email=='" + email + "'}.name");
+        String actualEmail = jsonPath.getString("find{it.email=='" + email + "'}.email");
+
+        assertEquals(email, actualEmail);
+        assertEquals(fullName, actualName);
+    }
 }
