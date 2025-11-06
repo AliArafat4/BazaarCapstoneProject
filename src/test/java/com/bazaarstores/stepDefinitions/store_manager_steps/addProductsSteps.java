@@ -21,7 +21,7 @@ public class addProductsSteps {
         Driver.getDriver().get(ConfigReader.getBaseUrl());
     }
 
-    //TODO: ASSERT
+    //TODO: ASSERT fix to check add product button
     @Given("store manager is logged in")
     public void storeManagerIsLoggedIn() {
         Assert.assertTrue(allPages.getStoreManagerDashboardPage().isDashboardButtonDisplayed());
@@ -102,7 +102,7 @@ public class addProductsSteps {
         Assert.assertTrue(allPages.getStoreManagerDashboardPage().isSuccessMessageDisplayed());
     }
 
-    //TODO: ASSERT
+    //TODO: ASSERT fix to check add product button
     @Then("store manager get redirected to Products page")
     public void storeManagerGetRedirectedToProductsPage() {
         Assert.assertTrue(allPages.getStoreManagerDashboardPage().isDashboardButtonDisplayed());
