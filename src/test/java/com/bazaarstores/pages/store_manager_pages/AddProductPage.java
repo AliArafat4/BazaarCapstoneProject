@@ -1,9 +1,7 @@
 package com.bazaarstores.pages.store_manager_pages;
 
 import com.bazaarstores.pages.BasePage;
-import io.cucumber.java.eo.Se;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 
@@ -22,9 +20,10 @@ public class AddProductPage extends BasePage {
     private final By productDiscountInput = By.id("discount-column");
 
     private final By productDescriptionInput = By.id("tinymce");
-    
+
     private final By submitButton = By.xpath("//button[@type='submit']");
 
+    private final String iframeName = "default_ifr";
 
     public AddProductPage enterProductName(String name) {
         sendKeys(productNameInput, name);
@@ -64,7 +63,7 @@ public class AddProductPage extends BasePage {
     }
 
     public AddProductPage enterProductImage(String image) {
-        File file = new File("src/test/resources/images/book.png");
+        File file = new File("src/test/resources/images/" + image);
         String absolutePath = file.getAbsolutePath();
         sendKeys(productImageInput, absolutePath);
         return this;
@@ -77,7 +76,7 @@ public class AddProductPage extends BasePage {
 
     public AddProductPage enterProductDescription(String description) {
 
-        getDriver().switchTo().frame("default_ifr");
+        getDriver().switchTo().frame(iframeName);
         sendKeys(productDescriptionInput, description);
 
         getDriver().switchTo().parentFrame();
@@ -89,5 +88,65 @@ public class AddProductPage extends BasePage {
         return this;
     }
 
+    public boolean isErrorMessageDisplayed(String missingInfo) {
+        By errorMessage = By.xpath("//li[contains(text(), 'field is required')]");
+        String error = findElement(errorMessage).getText();
 
+        if (error.contains(missingInfo) || missingInfo.equals("all")) {
+            return isDisplayed(errorMessage);
+        }
+        return false;
+    }
+
+    public boolean takenSKUError(String errorMsg) {
+        By errorMessage = By.xpath("//li[contains(text(), '" + errorMsg + "')]");
+        return isDisplayed(errorMessage);
+    }
+
+    public boolean negativeNumberError(String errorField) {
+        By errorMessage = By.xpath("//li[contains(text(), '" + errorField + "')]");
+        return isDisplayed(errorMessage);
+
+//        if (error.contains(errorField) || errorField.equals("all")) {
+//            return isDisplayed(errorMessage);
+//        }
+//        return false;
+
+    }
+
+    public boolean invalidImageFormatErrorMessage(String errorMsg) {
+        By errorMessage = By.xpath("//li[contains(text(), '" + errorMsg + "')]");
+        return isDisplayed(errorMessage);
+    }
+
+    public boolean isPageTitleDisplayed(String pageTitle) {
+        String actualTitle = getDriver().getTitle();
+        return pageTitle.equals(actualTitle);
+    }
+
+    public boolean areAllInputFieldsClickable() {
+        return isEnabled(productNameInput) &&
+                isEnabled(productPriceInput) &&
+                isEnabled(productStockInput) &&
+                isEnabled(productSKUInput) &&
+                isEnabled(productCategoryInput) &&
+                isEnabled(productManufacturerInput) &&
+                isEnabled(productImageInput) &&
+                isEnabled(productDiscountInput) &&
+                isIframeElementEnabled(productDescriptionInput, iframeName) &&
+                isEnabled(submitButton);
+    }
+
+    public boolean areAllInputFieldsVisible() {
+        return isDisplayed(productNameInput) &&
+                isDisplayed(productPriceInput) &&
+                isDisplayed(productStockInput) &&
+                isDisplayed(productSKUInput) &&
+                isDisplayed(productCategoryInput) &&
+                isDisplayed(productManufacturerInput) &&
+                isDisplayed(productImageInput) &&
+                isDisplayed(productDiscountInput) &&
+                isIframeElementVisible(productDescriptionInput, iframeName) &&
+                isDisplayed(submitButton);
+    }
 }

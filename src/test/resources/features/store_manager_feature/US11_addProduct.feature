@@ -25,17 +25,110 @@ Feature:
     Then store manager should see success message for adding product
     And store manager get redirected to Products page
     And store manager should see the new product in the products list with name "Sample Book"
-    And assert the new product via API with name "Sample Book"
+    And assert the new product via API with name "Sample Book" and sku "00001"
 
-#    @NegativeAddProduct
-#    Scenario: Store Manager fails to add a new product due to missing name
-#        Given store manager is logged in
-#        When store manager navigates to "Products" section
-#        And store manager clicks on "Add New Product" button
-#        And store manager leaves product name empty
-#        And store manager enters product description "This is a sample product."
-#        And store manager sets product price "29.99"
-#        And store manager uploads product image "sample_image.jpg"
-#        And store manager clicks on "Save Product" button
-#        Then store manager should see error message for missing product name
-#        And assert the new product via API does not exist with description "This is a sample product."
+  @Smoke @PositiveAddProduct
+  Scenario: Store Manager adds a new product with only required information successfully
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    And store manager enters product name "Sample Book"
+    And store manager sets product price "10.00"
+    And store manager sets product stock "100"
+    And store manager sets product SKU "00002"
+    And store manager clicks on Submit button
+    Then store manager should see success message for adding product
+    And store manager get redirected to Products page
+    And store manager should see the new product in the products list with name "Sample Book"
+    And assert the new product via API with name "Sample Book" and sku "00002"
+
+  @Smoke @NegativeAddProduct @MissingData
+  Scenario Outline: Store Manager fails to add a new product due to missing information
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    And store manager enters product name '<ProductName>'
+    And store manager sets product price "<Price>"
+    And store manager sets product stock "<Stock>"
+    And store manager sets product SKU "<SKU>"
+    And store manager clicks on Submit button
+    Then store manager should see error message for missing product info "<Error field>"
+    And assert the product wasn't added via API with sku "SKU"
+    Examples:
+      | ProductName |  | Price | Stock | SKU   | Error field |  |
+      |             |  |       |       |       | all         |  |
+      |             |  | 10.00 | 100   | 00003 | name        |  |
+      | Sample Book |  |       | 100   | 00004 | price       |  |
+      | Sample Book |  | 10.00 |       | 00005 | stock       |  |
+      | Sample Book |  | 10.00 | 100   |       | sku         |  |
+
+  @Smoke @NegativeAddProduct @SkuTaken
+  Scenario: Store Manager adds a new product with taken sku
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    And store manager enters product name "Sample Book"
+    And store manager sets product price "10.00"
+    And store manager sets product stock "100"
+    And store manager sets product SKU "3945165"
+    And store manager clicks on Submit button
+    Then store manager should see error message for taken sku "The sku has already been taken."
+    And assert the the product wasn't added via API with name "Sample Book" and sku "3945165"
+
+  @Smoke @NegativeAddProduct @NegativeNumbers @KnownIssue
+  Scenario Outline: Store Manager fails to add a new product due to negative numbers input
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    And store manager enters product name 'Sample Book'
+    And store manager sets product price "<Price>"
+    And store manager sets product stock "<Stock>"
+    And store manager sets product SKU "<sku>"
+    And store manager sets product discount "<Discount>"
+    And store manager clicks on Submit button
+    Then store manager should see error message for negative number "<Error field>"
+    And assert the product wasn't added via API with sku "SKU" and name "Sample Book"
+    Examples:
+      | Price |  | Stock | Discount | sku   | Error field     |  |
+      | -10   |  | 10    | 10       | 00006 | price           |  |
+      | -10   |  | -10   | 10       | 00007 | price, stock    |  |
+      | -10   |  | -10   | -10      | 00008 | all             |  |
+      | 10    |  | -10   | 10       | 00009 | stock           |  |
+      | 10    |  | -10   | -10      | 00010 | stock, discount |  |
+      | 10    |  | 10    | -10      | 00011 | discount        |  |
+
+  @Smoke @NegativeAddProduct @InvalidImageFormat
+  Scenario: Store Manager adds a new product with all information successfully
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    And store manager enters product name "Sample Book"
+    And store manager sets product price "10.00"
+    And store manager sets product stock "100"
+    And store manager sets product SKU "00012"
+    And store manager uploads product image "book.txt"
+    And store manager clicks on Submit button
+    Then store manager should see error message for invalid image format "The image field must be an image."
+    Then store manager should see error message for invalid image format "The image field must be a file of type: jpeg, png, jpg, gif, svg."
+    And assert the the product wasn't added via API with name "Sample Book" and sku "00012"
+
+  @Smoke @PositiveAddProduct @PageTitle @KnownIssue
+  Scenario: Verify Store Manager is on Add Product page
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    Then store manager should see the page title is "Add Product"
+
+  @Smoke @PositiveAddProduct @ClickableFields @KnownIssue
+  Scenario: Verify Store Manager is on Add Product page
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    Then store manager should be able to click all input fields on Add Product page
+
+  @Smoke @PositiveAddProduct @VisibleFields @KnownIssue
+  Scenario: Verify Store Manager is on Add Product page
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    Then store manager should be able to see all input fields on Add Product page
