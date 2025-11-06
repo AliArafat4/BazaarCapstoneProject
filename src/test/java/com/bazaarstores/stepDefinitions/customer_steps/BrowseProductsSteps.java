@@ -1,12 +1,11 @@
 package com.bazaarstores.stepDefinitions.customer_steps;
 
 import com.bazaarstores.pages.AllPages;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class CustomerSteps {
+public class BrowseProductsSteps {
 
 
     AllPages pages = new AllPages();
