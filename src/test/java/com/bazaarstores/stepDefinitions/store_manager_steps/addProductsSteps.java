@@ -21,9 +21,10 @@ public class addProductsSteps {
         Driver.getDriver().get(ConfigReader.getBaseUrl());
     }
 
+    //TODO: ASSERT
     @Given("store manager is logged in")
     public void storeManagerIsLoggedIn() {
-        allPages.getStoreManagerDashboardPage().isDashboardButtonDisplayed();
+        Assert.assertTrue(allPages.getStoreManagerDashboardPage().isDashboardButtonDisplayed());
     }
 
     @When("store manager navigates to Products section")
@@ -101,9 +102,10 @@ public class addProductsSteps {
         Assert.assertTrue(allPages.getStoreManagerDashboardPage().isSuccessMessageDisplayed());
     }
 
+    //TODO: ASSERT
     @Then("store manager get redirected to Products page")
     public void storeManagerGetRedirectedToProductsPage() {
-        allPages.getStoreManagerDashboardPage().isDashboardButtonDisplayed();
+        Assert.assertTrue(allPages.getStoreManagerDashboardPage().isDashboardButtonDisplayed());
     }
 
     @Then("store manager should see the new product in the products list with name {string}")

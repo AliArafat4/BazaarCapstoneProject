@@ -10,9 +10,8 @@ public class StoreManagerDashboardPage extends BasePage {
     private final By productsButton = By.xpath("//span[normalize-space()='Products']");
     private final By successMsg = By.xpath("//div[@class='toast-title']");
 
-    public StoreManagerDashboardPage isDashboardButtonDisplayed() {
-        isDisplayed(dashboardButton);
-        return this;
+    public Boolean isDashboardButtonDisplayed() {
+        return isDisplayed(dashboardButton);
     }
 
     public StoreManagerDashboardPage clickProductsButton() {

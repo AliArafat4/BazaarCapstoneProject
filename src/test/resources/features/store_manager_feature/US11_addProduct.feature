@@ -75,7 +75,8 @@ Feature:
     Then store manager should see error message for taken sku "The sku has already been taken."
     And assert the the product wasn't added via API with name "Sample Book" and sku "3945165"
 
-  @Smoke @NegativeAddProduct @NegativeNumbers @KnownIssue
+    #ADDED ZeroNumbers test cases
+  @Smoke @NegativeAddProduct @NegativeNumbers @ZeroNumbers @KnownIssue
   Scenario Outline: Store Manager fails to add a new product due to negative numbers input
     Given store manager is logged in
     When store manager navigates to Products section
@@ -96,6 +97,9 @@ Feature:
       | 10    |  | -10   | 10       | 00009 | stock           |  |
       | 10    |  | -10   | -10      | 00010 | stock, discount |  |
       | 10    |  | 10    | -10      | 00011 | discount        |  |
+      | 0     |  | 10    | 10       | 00012 | price           |  |
+      | 10    |  | 0     | 10       | 00013 | stock           |  |
+      | 0     |  | 0     | 10       | 00014 | price, stock    |  |
 
   @Smoke @NegativeAddProduct @InvalidImageFormat
   Scenario: Store Manager adds a new product with all information successfully
@@ -105,12 +109,12 @@ Feature:
     And store manager enters product name "Sample Book"
     And store manager sets product price "10.00"
     And store manager sets product stock "100"
-    And store manager sets product SKU "00012"
+    And store manager sets product SKU "00015"
     And store manager uploads product image "book.txt"
     And store manager clicks on Submit button
     Then store manager should see error message for invalid image format "The image field must be an image."
     Then store manager should see error message for invalid image format "The image field must be a file of type: jpeg, png, jpg, gif, svg."
-    And assert the the product wasn't added via API with name "Sample Book" and sku "00012"
+    And assert the the product wasn't added via API with name "Sample Book" and sku "00015"
 
   @Smoke @PositiveAddProduct @PageTitle @KnownIssue
   Scenario: Verify Store Manager is on Add Product page
