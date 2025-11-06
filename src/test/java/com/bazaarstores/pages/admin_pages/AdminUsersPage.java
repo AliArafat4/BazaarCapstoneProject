@@ -18,4 +18,8 @@ public class AdminUsersPage extends BasePage {
         return this;
     }
 
+    public boolean addUsersIsVisible(){
+        return isDisplayed(addUsersButton);
+    }
+
 }
