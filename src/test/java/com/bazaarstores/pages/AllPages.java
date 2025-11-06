@@ -2,8 +2,8 @@ package com.bazaarstores.pages;
 
 import com.bazaarstores.pages.admin_pages.AdminDashboardPage;
 
-import com.bazaarstores.pages.adminPages.AddUserPage;
-import com.bazaarstores.pages.adminPages.AdminUsersPage;
+import com.bazaarstores.pages.admin_pages.AddUserPage;
+import com.bazaarstores.pages.admin_pages.AdminUsersPage;
 
 
 import com.bazaarstores.pages.login_pages.LoginPage;

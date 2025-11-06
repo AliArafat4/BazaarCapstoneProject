@@ -1,15 +1,10 @@
-package com.bazaarstores.stepDefinitions.adminSteps;
+package com.bazaarstores.stepDefinitions.admin_steps;
 
 import com.bazaarstores.pages.BasePage;
 import com.github.javafaker.Faker;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.*;
 import com.bazaarstores.pages.AllPages;
-import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
-
-import java.util.List;
-import java.util.Map;
 
 public class AddNewUserSteps extends BasePage {
 
