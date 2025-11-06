@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "com.bazaarstores.stepDefinitions",
         tags = "@BrowseProducts",
-
         dryRun = false
 )
 public class TestRunner {

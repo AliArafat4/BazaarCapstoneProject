@@ -1,4 +1,4 @@
-package com.bazaarstores.pages.adminPages;
+package com.bazaarstores.pages.admin_pages;
 
 import com.bazaarstores.pages.BasePage;
 import com.bazaarstores.utilities.ConfigReader;
