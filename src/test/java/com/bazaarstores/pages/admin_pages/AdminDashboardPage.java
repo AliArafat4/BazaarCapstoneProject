@@ -13,10 +13,23 @@ public class AdminDashboardPage extends BasePage {
     private final By tableColumns=By.xpath("//table[contains(@class,'table')]/thead//th");
     private final By editStoreBtn=By.xpath("//table[contains(@class,'table')]/tbody//td/button//a");
     private final By deleteStoreBtn=By.xpath("//table[contains(@class,'table')]/tbody//td/button[contains(@onClick,\"confirmDelete\")]");
+    private final By addStoreBtn=By.xpath("//a[text()='ADD STORE']");
+    private final By successToast = By.xpath("//div[contains(text(),'Store created successfully')]");
+    private final By errorToast = By.xpath("//div[contains(text(),'Store creation failed')]");
+    private String storeName="//table//tbody//tr[td[contains(normalize-space(.),'%s')]]";
+
+
     private final String[] cloumns={"Name","Description","Location", "Admin Name",  "Actions"};
 
-    public void clickStoresLink() {
+    public AdminDashboardPage clickStoresLink() {
         click(storesLink);
+        return this;
+
+    }
+
+    public AddStorePage clickAddStore() {
+        click(addStoreBtn);
+        return new AddStorePage();
     }
 
     public boolean isStoresTableDisplayed(){
@@ -39,5 +52,17 @@ public class AdminDashboardPage extends BasePage {
 
     public boolean verifyActionsBtnsDisplayed() {
         return (isDisplayed(deleteStoreBtn) && isDisplayed(editStoreBtn));
+    }
+
+    public String getSuccessMessage() {
+        return getText(successToast);
+    }
+
+    public boolean isErrorMessageDisplayed() {
+        return isDisplayed(errorToast);
+    }
+
+    public boolean isStoreDisplayed(String name) {
+        return isDisplayed(By.xpath(String.format(storeName,name)));
     }
 }
