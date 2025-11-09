@@ -29,7 +29,6 @@ public class AllPages {
     private AddUserPage addUserPage;
     private AddEditStorePage addEditStorePage;
     private EditUserPage editUserPage;
-    //    private AddStorePage addStorePage;
     private EditProductPage editProductPage;
 
     private StoreManagerDashboardPage storeManagerDashboardPage;
