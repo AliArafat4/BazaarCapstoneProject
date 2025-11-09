@@ -2,10 +2,11 @@ package com.bazaarstores.pages;
 
 import com.bazaarstores.pages.admin_pages.AddEditStorePage;
 import com.bazaarstores.pages.admin_pages.AdminDashboardPage;
-import com.bazaarstores.pages.admin_pages.*;
 
 import com.bazaarstores.pages.admin_pages.AddUserPage;
 import com.bazaarstores.pages.admin_pages.AdminUsersPage;
+import com.bazaarstores.pages.admin_pages.*;
+
 
 import com.bazaarstores.pages.customer_pages.CustomerFavorite;
 import com.bazaarstores.pages.login_pages.LoginPage;

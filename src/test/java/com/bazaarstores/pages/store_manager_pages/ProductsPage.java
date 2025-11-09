@@ -25,6 +25,7 @@ public class ProductsPage extends BasePage {
     public ProductsPage clickEditProductButton(String productName) {
         By editButton = By.xpath("//tbody/tr[td[normalize-space(.)='" + productName + "']]/td[6]/button[1]");
         scrollToElement(editButton);
+        waitUntilElementIsFullyInView(editButton, 5);
         click(editButton);
         return this;
     }
