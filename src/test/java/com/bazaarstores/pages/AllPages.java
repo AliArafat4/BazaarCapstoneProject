@@ -3,6 +3,7 @@ package com.bazaarstores.pages;
 import com.bazaarstores.pages.admin_pages.*;
 
 
+import com.bazaarstores.pages.customer_pages.CustomerFavorite;
 import com.bazaarstores.pages.login_pages.LoginPage;
 import com.bazaarstores.pages.store_manager_pages.AddProductPage;
 import com.bazaarstores.pages.store_manager_pages.ProductsPage;
@@ -28,6 +29,9 @@ public class AllPages {
     private AddProductPage addProductsPage;
 
     private CustomerMainPage customerMainPage;
+    private CustomerFavorite customerFavorite; // حقل للكلاس الجديد
+
+
 
     public LoginPage getLoginPage() {
         if (loginPage == null) {
@@ -115,4 +119,11 @@ public class AllPages {
         return editUserPage;
     }
 
+
+    public CustomerFavorite getCustomerFavorite() {
+        if (customerFavorite == null) {
+            customerFavorite = new CustomerFavorite();
+        }
+        return customerFavorite;
+    }
 }
