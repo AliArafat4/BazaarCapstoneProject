@@ -98,10 +98,15 @@ public class AddProductPage extends BasePage {
         return false;
     }
 
-    public boolean takenSKUError(String errorMsg) {
+    public boolean hasErrorMessage(String errorMsg) {
         By errorMessage = By.xpath("//li[contains(text(), '" + errorMsg + "')]");
         return isDisplayed(errorMessage);
     }
+
+//    public boolean takenSKUError(String errorMsg) {
+//        By errorMessage = By.xpath("//li[contains(text(), '" + errorMsg + "')]");
+//        return isDisplayed(errorMessage);
+//    }
 
     public boolean negativeNumberError(String errorField) {
         By errorMessage = By.xpath("//li[contains(text(), '" + errorField + "')]");
@@ -114,10 +119,10 @@ public class AddProductPage extends BasePage {
 
     }
 
-    public boolean invalidImageFormatErrorMessage(String errorMsg) {
-        By errorMessage = By.xpath("//li[contains(text(), '" + errorMsg + "')]");
-        return isDisplayed(errorMessage);
-    }
+//    public boolean invalidImageFormatErrorMessage(String errorMsg) {
+//        By errorMessage = By.xpath("//li[contains(text(), '" + errorMsg + "')]");
+//        return isDisplayed(errorMessage);
+//    }
 
     public boolean isPageTitleDisplayed(String pageTitle) {
         String actualTitle = getDriver().getTitle();
