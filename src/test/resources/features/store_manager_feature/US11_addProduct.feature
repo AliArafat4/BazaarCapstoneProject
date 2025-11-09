@@ -53,7 +53,7 @@ Feature:
     And store manager sets product SKU "<SKU>"
     And store manager clicks on Submit button
     Then store manager should see error message for missing product info "<Error field>"
-    And assert the product wasn't added via API with sku "SKU"
+    And assert the product wasn't added via API with sku "<SKU>"
     Examples:
       | ProductName |  | Price | Stock | SKU   | Error field |  |
       |             |  |       |       |       | all         |  |
@@ -117,21 +117,21 @@ Feature:
     And assert the the product wasn't added via API with name "Sample Book" and sku "00015"
 
   @Smoke @PositiveAddProduct @PageTitle @KnownIssue
-  Scenario: Verify Store Manager is on Add Product page
+  Scenario: Verify Add product page title
     Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
     Then store manager should see the page title is "Add Product"
 
-  @Smoke @PositiveAddProduct @ClickableFields @KnownIssue
-  Scenario: Verify Store Manager is on Add Product page
+  @Smoke @PositiveAddProduct @ClickableFields
+  Scenario: Verify all fields are clickable in add product page
     Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
     Then store manager should be able to click all input fields on Add Product page
 
-  @Smoke @PositiveAddProduct @VisibleFields @KnownIssue
-  Scenario: Verify Store Manager is on Add Product page
+  @Smoke @PositiveAddProduct @VisibleFields
+  Scenario: Verify all fields are visible in add product page
     Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button

@@ -251,4 +251,7 @@ public abstract class BasePage {
     public byte[] takeScreenshot() {
         return ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
     }
-}
+
+
+
+    }

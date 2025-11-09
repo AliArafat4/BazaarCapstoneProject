@@ -121,7 +121,13 @@ public class AddNewUserSteps extends BasePage {
 
     @Then("admin should be able to see the Submit button")
     public void adminShouldBeAbleToSeeTheSubmitButton() {
-      assertTrue(pages.getAddUserPage().submitButtonIsVisible());
+      assertTrue(pages.getAddUserPage().isSubmitButtonVisible());
+    }
+
+    @Then("admin should see the new user in the users list")
+    public void adminShouldSeeTheNewUserInTheUsersList() {
+            Assert.assertTrue(pages.getAdminUsersPage().isUserInList(AddNewUserSteps.attemptedEmail));
+
     }
 }
 

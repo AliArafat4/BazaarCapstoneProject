@@ -3,6 +3,7 @@ package com.bazaarstores.stepDefinitions;
 import com.bazaarstores.stepDefinitions.admin_steps.AddNewUserSteps;
 import com.bazaarstores.utilities.ApiHelper;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -103,5 +104,11 @@ public class ApiSteps {
         ApiHelper.clearCapturedState();
         AddNewUserSteps.attemptedEmail = null;
         AddNewUserSteps.attemptedName = null;
+    }
+
+    @Then("assert the update via API")
+    public void assert_the_update_via_api() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
     }
 }

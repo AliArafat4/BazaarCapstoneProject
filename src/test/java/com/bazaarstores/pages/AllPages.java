@@ -5,10 +5,13 @@ import com.bazaarstores.pages.admin_pages.AdminDashboardPage;
 
 import com.bazaarstores.pages.admin_pages.AddUserPage;
 import com.bazaarstores.pages.admin_pages.AdminUsersPage;
+import com.bazaarstores.pages.admin_pages.*;
 
 
+import com.bazaarstores.pages.customer_pages.CustomerFavorite;
 import com.bazaarstores.pages.login_pages.LoginPage;
 import com.bazaarstores.pages.store_manager_pages.AddProductPage;
+import com.bazaarstores.pages.store_manager_pages.EditProductPage;
 import com.bazaarstores.pages.store_manager_pages.ProductsPage;
 import com.bazaarstores.pages.store_manager_pages.StoreManagerDashboardPage;
 
@@ -25,12 +28,17 @@ public class AllPages {
     private AdminUsersPage adminUsersPage;
     private AddUserPage addUserPage;
     private AddEditStorePage addEditStorePage;
+    private EditUserPage editUserPage;
+    private AddStorePage addStorePage;
+    private EditProductPage editProductPage;
 
     private StoreManagerDashboardPage storeManagerDashboardPage;
     private ProductsPage productsPage;
     private AddProductPage addProductsPage;
 
     private CustomerMainPage customerMainPage;
+    private CustomerFavorite customerFavorite; // حقل للكلاس الجديد
+
 
     public LoginPage getLoginPage() {
         if (loginPage == null) {
@@ -111,4 +119,25 @@ public class AllPages {
         return customerMainPage;
     }
 
+    public EditUserPage getEditUserPage() {
+        if (editUserPage == null) {
+            editUserPage = new EditUserPage();
+        }
+        return editUserPage;
+    }
+
+
+    public CustomerFavorite getCustomerFavorite() {
+        if (customerFavorite == null) {
+            customerFavorite = new CustomerFavorite();
+        }
+        return customerFavorite;
+    }
+
+    public EditProductPage getEditProductPage() {
+        if (editProductPage == null) {
+            editProductPage = new EditProductPage();
+        }
+        return editProductPage;
+    }
 }
