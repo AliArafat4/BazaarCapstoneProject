@@ -1,9 +1,11 @@
 package com.bazaarstores.pages.customer_pages;
 
+import com.bazaarstores.pages.BasePage;
 import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
 
-import static org.junit.Assert.assertTrue;
+
+
 
 public class CustomerMainPage {
 
@@ -38,4 +40,10 @@ public class CustomerMainPage {
         return Driver.getDriver().findElement(productImage).isDisplayed();
 
     }
+
+
 }
+
+
+
+
