@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+import static com.bazaarstores.utilities.Driver.getDriver;
+
 public abstract class BasePage {
 
     protected WebDriverWait wait;
@@ -92,6 +94,7 @@ public abstract class BasePage {
         String validationMessage = getValidationMessage(locator);
         return validationMessage != null && !validationMessage.isEmpty();
     }
+
     public boolean isDisplayed(By locator) {
         try {
             waitForElementToBeVisible(locator);
@@ -105,6 +108,28 @@ public abstract class BasePage {
     public boolean isEnabled(By locator) {
         try {
             return findElement(locator).isEnabled();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isIframeElementEnabled(By locator, String iframeName) {
+        try {
+            getDriver().switchTo().frame(iframeName);
+            boolean isEnabled = findElement(locator).isEnabled();
+            switchToDefaultContent();
+            return isEnabled;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isIframeElementVisible(By locator, String iframeName) {
+        try {
+            getDriver().switchTo().frame(iframeName);
+            boolean isDisplayed = findElement(locator).isDisplayed();
+            switchToDefaultContent();
+            return isDisplayed;
         } catch (Exception e) {
             return false;
         }

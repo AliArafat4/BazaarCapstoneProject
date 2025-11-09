@@ -7,7 +7,7 @@ Feature: add new user
     And user clicks login button
     Then admin should be logged in successfully
 
-  @TC001 @PositiveAddUser
+  @US15TC01 @Positive
   Scenario: Successfully add a new user
     When admin navigates to the Users page
     And clicks on Add Users button
@@ -18,4 +18,43 @@ Feature: add new user
 
 
 
+  @Negative
+  Scenario Outline: Add user with invalid data
+    When admin navigates to the Users page
+    And clicks on Add Users button
+    And capture current users count
+    And enters invalid user data:
+      | Name   | Email          | Role          | Password   | ConfirmPassword   |
+      | <Name> | <Email>        | <Role>        | <Password> | <ConfirmPassword> |
+    And clicks on Submit button
+    Then an error message "<ErrorMessage>" should appear
+    And assert the invalid user addition via API
 
+    Examples:
+      | Name  | Email                   | Role          | Password       | ConfirmPassword | ErrorMessage                                   |
+      |       | missingField@sda.com    | Store Manager | Password.12345 | Password.12345  | The name field is required.                    |
+      | Zahra |                         | Admin         | Password.12345 | Password.12345  | The email field is required.                   |
+      | Sara  | missingField@sda.com    |               | Password.12345 | Password.12345  | The role field is required.                    |
+      | Zahra | missingField@sda.com    | Store Manager |                | Password.12345  | The password field is required.                |
+      | Mary  | missingField@sda.com    | Store Manager | Password.12345 |                 | The password field confirmation does not match.|
+      | John  | mismatchPassword@sda.com| Customer      | Password.12345 | Password.123443 | The password field confirmation does not match.|
+      | Jack  | customer@sda.com        | Customer      | Password.12345 | Password.12345  | The email has already been taken.              |
+      |       |                         |               |                |                 | The name field is required. ; The email field is required. ; The role field is required. ; The password field is required. |
+
+  @US15TC11 @Positive
+    Scenario: Verify ADD USERS button is visible and clickable
+      When admin navigates to the Users page
+      Then admin should be able to see the ADD USERS button
+      When clicks on Add Users button
+      Then admin should navigates to the Add Users page
+
+  @US15TC14 @Positive
+  Scenario: Verify Submit button in Add Users page is visible and clickable
+    When admin navigates to the Users page
+    Then admin should be able to see the Submit button
+    When clicks on Add Users button
+    Then admin should navigates to the Add Users page
+    And admin enters Name, valid@email.com, Role, Password, and PasswordConfirmation
+    And clicks on Submit button
+    Then a success message should appear
+    And assert the user addition via API

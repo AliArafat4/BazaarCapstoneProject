@@ -8,8 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "com.bazaarstores.stepDefinitions",
-        tags = "@US07"
-        ,
+        tags = "@Smoke",
         plugin = {
                 "pretty", // Generates readable console output with colored text
                 "html:target/cucumber-reports/cucumber.html", // Creates HTML report at specified path
