@@ -31,4 +31,22 @@ public class ApiUtilities {
         return response.jsonPath().getString("authorisation.token");
     }
 
+    public static String getCustomerToken(){
+        Map payload = new HashMap();
+        payload.put("email" , ConfigReader.getCustomerEmail());
+        payload.put("password", ConfigReader.getDefaultPassword());
+
+        Response response= RestAssured.given().body(payload).contentType(ContentType.JSON).post(ConfigReader.getApiBaseUrl()+"/login");
+        return response.jsonPath().getString("authorisation.token");
+    }
+
+    public static String getStoreMangerToken(){
+        Map payload = new HashMap();
+        payload.put("email" , ConfigReader.getStoreManagerEmail());
+        payload.put("password", ConfigReader.getDefaultPassword());
+
+        Response response= RestAssured.given().body(payload).contentType(ContentType.JSON).post(ConfigReader.getApiBaseUrl()+"/login");
+        return response.jsonPath().getString("authorisation.token");
+    }
+
 }
