@@ -12,7 +12,7 @@ import org.junit.Assert;
 import static com.bazaarstores.utilities.ApiUtilities.spec;
 import static org.junit.Assert.*;
 
-public class addProductsSteps {
+public class AddProductsSteps {
 
     AllPages allPages = new AllPages();
 
@@ -98,7 +98,7 @@ public class addProductsSteps {
 
     @Then("store manager should see success message for adding product")
     public void store_manager_should_see_success_message_for_adding_product() {
-        Assert.assertTrue(allPages.getStoreManagerDashboardPage().isSuccessMessageDisplayed());
+        Assert.assertTrue(allPages.getProductsPage().isSuccessMessageDisplayed());
     }
 
     @Then("store manager get redirected to Products page")
@@ -113,7 +113,7 @@ public class addProductsSteps {
 
 
     @Then("assert the new product via API with name {string} and sku {string}")
-    public void assert_the_new_product_via_api_with_name(String productName, String sku) {
+    public void assert_the_new_product_via_api_with_name_and_sku(String productName, String sku) {
         Response response = RestAssured.given(spec()).get("/products");
 
         JsonPath jsonPath = response.jsonPath();
@@ -141,7 +141,7 @@ public class addProductsSteps {
 
     @Then("store manager should see error message for taken sku {string}")
     public void store_manager_should_see_error_message_for_taken_sku(String errorMsg) {
-        Assert.assertTrue(allPages.getAddProductsPage().takenSKUError(errorMsg));
+        Assert.assertTrue(allPages.getAddProductsPage().hasErrorMessage(errorMsg));
     }
 
     @Then("assert the the product wasn't added via API with name {string} and sku {string}")
@@ -167,7 +167,7 @@ public class addProductsSteps {
 
     @Then("store manager should see error message for invalid image format {string}")
     public void storeManagerShouldSeeErrorMessageForInvalidImageFormat(String errorMsg) {
-        Assert.assertTrue(allPages.getAddProductsPage().invalidImageFormatErrorMessage(errorMsg));
+        Assert.assertTrue(allPages.getAddProductsPage().hasErrorMessage(errorMsg));
     }
 
     @Then("store manager should see the page title is {string}")

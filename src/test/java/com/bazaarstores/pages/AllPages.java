@@ -10,6 +10,7 @@ import com.bazaarstores.pages.admin_pages.AdminUsersPage;
 import com.bazaarstores.pages.customer_pages.CustomerFavorite;
 import com.bazaarstores.pages.login_pages.LoginPage;
 import com.bazaarstores.pages.store_manager_pages.AddProductPage;
+import com.bazaarstores.pages.store_manager_pages.EditProductPage;
 import com.bazaarstores.pages.store_manager_pages.ProductsPage;
 import com.bazaarstores.pages.store_manager_pages.StoreManagerDashboardPage;
 
@@ -26,6 +27,7 @@ public class AllPages {
     private AdminUsersPage adminUsersPage;
     private AddUserPage addUserPage;
     private AddStorePage addStorePage;
+    private EditProductPage editProductPage;
 
     private StoreManagerDashboardPage storeManagerDashboardPage;
     private ProductsPage productsPage;
@@ -33,7 +35,6 @@ public class AllPages {
 
     private CustomerMainPage customerMainPage;
     private CustomerFavorite customerFavorite; // حقل للكلاس الجديد
-
 
 
     public LoginPage getLoginPage() {
@@ -121,5 +122,12 @@ public class AllPages {
             customerFavorite = new CustomerFavorite();
         }
         return customerFavorite;
+    }
+
+    public EditProductPage getEditProductPage() {
+        if (editProductPage == null) {
+            editProductPage = new EditProductPage();
+        }
+        return editProductPage;
     }
 }

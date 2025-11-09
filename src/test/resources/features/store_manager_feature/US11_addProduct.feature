@@ -53,7 +53,7 @@ Feature:
     And store manager sets product SKU "<SKU>"
     And store manager clicks on Submit button
     Then store manager should see error message for missing product info "<Error field>"
-    And assert the product wasn't added via API with sku "SKU"
+    And assert the product wasn't added via API with sku "<SKU>"
     Examples:
       | ProductName |  | Price | Stock | SKU   | Error field |  |
       |             |  |       |       |       | all         |  |
