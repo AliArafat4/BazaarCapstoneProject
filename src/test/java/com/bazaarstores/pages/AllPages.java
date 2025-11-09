@@ -1,6 +1,6 @@
 package com.bazaarstores.pages;
 
-import com.bazaarstores.pages.admin_pages.AddStorePage;
+import com.bazaarstores.pages.admin_pages.AddEditStorePage;
 import com.bazaarstores.pages.admin_pages.AdminDashboardPage;
 
 import com.bazaarstores.pages.admin_pages.AddUserPage;
@@ -24,7 +24,7 @@ public class AllPages {
     private AdminDashboardPage adminDashboardPage;
     private AdminUsersPage adminUsersPage;
     private AddUserPage addUserPage;
-    private AddStorePage addStorePage;
+    private AddEditStorePage addEditStorePage;
 
     private StoreManagerDashboardPage storeManagerDashboardPage;
     private ProductsPage productsPage;
@@ -76,11 +76,11 @@ public class AllPages {
         return addUserPage;
     }
 
-    public AddStorePage getAddStorePage() {
-        if (addStorePage == null) {
-            addStorePage = new AddStorePage();
+    public AddEditStorePage getAddStorePage() {
+        if (addEditStorePage == null) {
+            addEditStorePage = new AddEditStorePage();
         }
-        return addStorePage;
+        return addEditStorePage;
     }
 
     public StoreManagerDashboardPage getStoreManagerDashboardPage() {
