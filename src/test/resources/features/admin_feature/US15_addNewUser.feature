@@ -18,7 +18,7 @@ Feature: add new user
 
 
 
-  @Negative
+  @Negative @testAdd
   Scenario Outline: Add user with invalid data
     When admin navigates to the Users page
     And clicks on Add Users button
@@ -40,6 +40,11 @@ Feature: add new user
       | John  | mismatchPassword@sda.com| Customer      | Password.12345 | Password.123443 | The password field confirmation does not match.|
       | Jack  | customer@sda.com        | Customer      | Password.12345 | Password.12345  | The email has already been taken.              |
       |       |                         |               |                |                 | The name field is required. ; The email field is required. ; The role field is required. ; The password field is required. |
+      | Zahra | adminsda.com            | Store Manager | Password.12345 | Password.12345  | Please include an '@' in the email address.    |
+      | Zahra | admin@@sda.com          | Store Manager | Password.12345 | Password.12345  | A part following '@' should not contain the symbol '@'.    |
+      | Zahra | missingDomain@sda       | Store Manager | Password.12345 | Password.12345  | missing domain extension (.com)                |
+
+
 
   @US15TC11 @Positive
     Scenario: Verify ADD USERS button is visible and clickable
@@ -57,4 +62,15 @@ Feature: add new user
     And admin enters Name, valid@email.com, Role, Password, and PasswordConfirmation
     And clicks on Submit button
     Then a success message should appear
+    And assert the user addition via API
+
+
+
+  @US15TC10 @Positive
+  Scenario: Added user is showing in the users list successfully
+    When admin navigates to the Users page
+    And clicks on Add Users button
+    And admin enters Name, valid@email.com, Role, Password, and PasswordConfirmation
+    And clicks on Submit button
+    Then admin should see the new user in the users list
     And assert the user addition via API
