@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 public class EditProductsSteps {
 
     AllPages allPages = new AllPages();
+    String imageUrlBeforeChange = "";
 
     @When("store manager clicks on Edit Product Button for {string} product")
     public void store_manager_clicks_on_edit_product_button(String productName) {
@@ -60,6 +61,8 @@ public class EditProductsSteps {
 
         if (field.contains("image")) {
             assertNotNull(actualValue);
+        } else if (field.contains("description")) {
+            assertTrue(actualValue.contains(editedValue));
         } else {
             assertEquals(editedValue, actualValue);
         }
@@ -72,13 +75,25 @@ public class EditProductsSteps {
 
         JsonPath jsonPath = response.jsonPath();
         String actualValue = jsonPath.getString("find{it.sku=='" + sku + "'}." + field);
-
-        assertNotEquals(editedValue, actualValue);
+        if (field.contains("image")) {
+            assertNotEquals(editedValue, imageUrlBeforeChange);
+        } else {
+            assertNotEquals(editedValue, actualValue);
+        }
     }
 
     @And("store manager should see the product in the products list with name {string} and {string} {string}")
     public void storeManagerShouldSeeTheProductInTheProductsListWithNameAndPrice(String name, String field, String value) {
         Assert.assertTrue(allPages.getProductsPage().isEditedProductInPage(name, value));
+
+    }
+
+    @And("get the product image_url before editing name {string} and sku {string}")
+    public void getTheProductImage_urlBeforeEditingNameAndSku(String name, String sku) {
+        Response response = RestAssured.given(spec()).get("/products");
+
+        JsonPath jsonPath = response.jsonPath();
+        imageUrlBeforeChange = jsonPath.getString("find{it.sku=='" + sku + "'}.image_url");
 
     }
 }

@@ -68,7 +68,7 @@ Feature:
     Examples:
       | book name    | price value | sku   |  |
       | sample book6 | 0.00        | 00023 |  |
-      | sample book7 | -20.00      | 00024 |  |
+      | sample book7 | -20.00      | 00124 |  |
 
     ###########################################
   @Smoke @PositiveEditProduct @PositiveEditStock
@@ -181,7 +181,62 @@ Feature:
     Given product is available in the list with name "sample book18", price "10", stock "10", and sku "00036"
     Then assert the new product via API with name "sample book18" and sku "00036"
     When store manager clicks on Edit Product Button for "sample book18" product
+    And get the product image_url before editing name "sample book18" and sku "00036"
     And store manager change Product "image" to "book.txt"
     And store manager clicks on Submit button
     Then store manager should see an error message for missing product "image" field
-    And assert the product wasn't edited via API with "name" "sample book14" and sku "397497"
+    And assert the product wasn't edited via API with "image_url" "book.txt" and sku "00036"
+
+  @Smoke @PositiveEditProduct @PositiveEditDiscount
+  Scenario: Store Manager edits a product Discount successfully
+    Given product is available in the list with name "sample book19", price "10", stock "10", and sku "00037"
+    Then assert the new product via API with name "sample book19" and sku "00037"
+    When store manager clicks on Edit Product Button for "sample book19" product
+    And store manager change Product "discount" to "20"
+    And store manager clicks on Submit button
+    Then store manager should see success message for editing a product
+    And store manager get redirected to Products page
+    And assert the edited product via API with "discount" "20.00" and sku "00037"
+
+
+  @Smoke @NegativeEditProduct @NegativeEditDiscount
+  Scenario: Store Manager fails to edits a product price duo to negative discount
+    Given product is available in the list with name "sample book20", price "10", stock "10", and sku "00038"
+    Then assert the new product via API with name "sample book20" and sku "00038"
+    When store manager clicks on Edit Product Button for "sample book20" product
+    And store manager change Product "discount" to "-20"
+    And store manager clicks on Submit button
+    Then store manager should see an error message for missing product "discount" field
+    And assert the product wasn't edited via API with "discount" "-20" and sku "00038"
+
+  @Smoke @PositiveEditProduct @PositiveEditDescription
+  Scenario: Store Manager edits a product Description successfully
+    Given product is available in the list with name "sample book21", price "10", stock "10", and sku "00039"
+    Then assert the new product via API with name "sample book21" and sku "00039"
+    When store manager clicks on Edit Product Button for "sample book21" product
+    And store manager change Product "description" to "New Description"
+    And store manager clicks on Submit button
+    Then store manager should see success message for editing a product
+    And store manager get redirected to Products page
+    And assert the edited product via API with "description" "New Description" and sku "00039"
+
+  @Smoke @PositiveAddProduct @PageTitle @KnownIssue
+  Scenario: Verify Edit product page title
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    Then store manager should see the page title is "Edit Product"
+
+  @Smoke @PositiveAddProduct @ClickableFields
+  Scenario: Verify all fields are clickable in add product page
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    Then store manager should be able to click all input fields on Add Product page
+
+  @Smoke @PositiveAddProduct @VisibleFields
+  Scenario: Verify all fields are visible in add product page
+    Given store manager is logged in
+    When store manager navigates to Products section
+    And store manager clicks on ADD PRODUCT button
+    Then store manager should be able to see all input fields on Add Product page
