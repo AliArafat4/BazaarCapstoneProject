@@ -252,6 +252,24 @@ public abstract class BasePage {
         return ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
+    public void waitUntilElementIsFullyInView(By locator, int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeoutSeconds));
 
+        wait.until(d -> {
+            WebElement element = findElement(locator);
+            JavascriptExecutor js = (JavascriptExecutor) getDriver();
 
+            return (Boolean) js.executeScript(
+                    "var elem = arguments[0], rect = elem.getBoundingClientRect();" +
+                            "return (" +
+                            "rect.top >= 0 && " +
+                            "rect.left >= 0 && " +
+                            "rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && " +
+                            "rect.right <= (window.innerWidth || document.documentElement.clientWidth)" +
+                            ");",
+                    element
+            );
+        });
     }
+
+}
