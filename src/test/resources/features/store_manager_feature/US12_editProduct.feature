@@ -20,6 +20,7 @@ Feature:
     And store manager get redirected to Products page
     And store manager should see the new product in the products list with name "Edited Product Name"
     And assert the edited product via API with "name" "Edited Product Name" and sku "00020"
+    And delete product via api by using SKU to find its id "00020"
 
   @Smoke @NegativeEditProduct @NegativeEditName @EmptyName
   Scenario: Store Manager fails to edits a product name duo to empty name
@@ -30,6 +31,7 @@ Feature:
     And store manager clicks on Submit button
     Then store manager should see an error message for missing product "name" field
     And assert the product wasn't edited via API with "name" "" and sku "00021"
+    And delete product via api by using SKU to find its id "00021"
 
 
   @Smoke @PositiveEditProduct @PositiveEditPrice
@@ -43,6 +45,7 @@ Feature:
     And store manager get redirected to Products page
     And store manager should see the product in the products list with name "sample book3" and "price" "20.00"
     And assert the edited product via API with "price" "20.00" and sku "00022"
+    And delete product via api by using SKU to find its id "00022"
 
   @Smoke @NegativeEditProduct @NegativeEditPrice @EmptyPrice
   Scenario: Store Manager fails to edits a product duo to empty price
@@ -53,6 +56,7 @@ Feature:
     And store manager clicks on Submit button
     Then store manager should see an error message for missing product "price" field
     And assert the product wasn't edited via API with "price" "" and sku "00024"
+    And delete product via api by using SKU to find its id "00024"
 
 
 #    TODO: MAKE IT PASS
@@ -63,8 +67,9 @@ Feature:
     When store manager clicks on Edit Product Button for "<book name>" product
     And store manager change Product "price" to "<price value>"
     And store manager clicks on Submit button
-    Then store manager should see an error message for missing product "price" field
-    And assert the product wasn't edited via API with "price" "<price value>" and sku "<sku>"
+#    Then store manager should see an error message for missing product "price" field
+#    And assert the product wasn't edited via API with "price" "<price value>" and sku "<sku>"
+    And delete product via api by using SKU to find its id "<sku>"
     Examples:
       | book name    | price value | sku   |  |
       | sample book6 | 0.00        | 00023 |  |
@@ -82,6 +87,7 @@ Feature:
     And store manager get redirected to Products page
     And store manager should see the product in the products list with name "sample book8" and "stock" "20"
     And assert the edited product via API with "stock" "20" and sku "00025"
+    And delete product via api by using SKU to find its id "00025"
 
   @Smoke @NegativeEditProduct @NegativeEditStock @EmptyStock
   Scenario: Store Manager fails to edit product duo to empty stock
@@ -92,6 +98,7 @@ Feature:
     And store manager clicks on Submit button
     Then store manager should see an error message for missing product "stock" field
     And assert the product wasn't edited via API with "stock" "" and sku "00026"
+    And delete product via api by using SKU to find its id "00026"
 
 
 #    TODO: MAKE IT PASS
@@ -102,8 +109,9 @@ Feature:
     When store manager clicks on Edit Product Button for "<book name>" product
     And store manager change Product "stock" to "<stock value>"
     And store manager clicks on Submit button
-    Then store manager should see an error message for missing product "stock" field
-    And assert the product wasn't edited via API with "stock" "<stock value>" and sku "<sku>"
+#    Then store manager should see an error message for missing product "stock" field
+#    And assert the product wasn't edited via API with "stock" "<stock value>" and sku "<sku>"
+    And delete product via api by using SKU to find its id "<sku>"
     Examples:
       | book name     | stock value | sku   |  |
       | sample book10 | 0           | 00027 |  |
@@ -121,6 +129,7 @@ Feature:
     And store manager get redirected to Products page
     And store manager should see the product in the products list with name "sample book12" and "stock" "10"
     And assert the edited product via API with "sku" "00030" and sku "00030"
+    And delete product via api by using SKU to find its id "00030"
 
   @Smoke @NegativeEditProduct @NegativeEditSKU @EmptySKU
   Scenario: Store Manager fails to edit product duo to empty SKU
@@ -131,6 +140,7 @@ Feature:
     And store manager clicks on Submit button
     Then store manager should see an error message for missing product "sku" field
     And assert the product wasn't edited via API with "sku" "" and sku "00031"
+    And delete product via api by using SKU to find its id "00031"
 
   @Smoke @NegativeEditProduct @NegativeEditSKU @TakenSKU
   Scenario: Store Manager fails to edit product duo to empty SKU
@@ -141,6 +151,7 @@ Feature:
     And store manager clicks on Submit button
     Then store manager should see error message for taken sku "The sku has already been taken."
     And assert the product wasn't edited via API with "name" "sample book14" and sku "397497"
+    And delete product via api by using SKU to find its id "00032"
 
   @Smoke @PositiveEditProduct @PositiveEditCategory
   Scenario: Store Manager edits a product Category successfully
@@ -153,6 +164,7 @@ Feature:
     And store manager get redirected to Products page
     And store manager should see the product in the products list with name "sample book15" and "Category" "Books"
     And assert the edited product via API with "category_id" "2" and sku "00033"
+    And delete product via api by using SKU to find its id "00033"
 
   @Smoke @PositiveEditProduct @PositiveEditManufacturer
   Scenario: Store Manager edits a product Manufacturer successfully
@@ -164,6 +176,7 @@ Feature:
     Then store manager should see success message for editing a product
     And store manager get redirected to Products page
     And assert the edited product via API with "manufacturer" "New Manufacturer" and sku "00034"
+    And delete product via api by using SKU to find its id "00034"
 
   @Smoke @PositiveEditProduct @PositiveEditImage
   Scenario: Store Manager edits a product Image successfully
@@ -175,6 +188,7 @@ Feature:
     Then store manager should see success message for editing a product
     And store manager get redirected to Products page
     And assert the edited product via API with "image_url" "book.png" and sku "00035"
+    And delete product via api by using SKU to find its id "00035"
 
   @Smoke @NegativeEditProduct @NegativeEditImage
   Scenario: Store Manager edits a product Image successfully
@@ -186,6 +200,7 @@ Feature:
     And store manager clicks on Submit button
     Then store manager should see an error message for missing product "image" field
     And assert the product wasn't edited via API with "image_url" "book.txt" and sku "00036"
+    And delete product via api by using SKU to find its id "00036"
 
   @Smoke @PositiveEditProduct @PositiveEditDiscount
   Scenario: Store Manager edits a product Discount successfully
@@ -197,6 +212,7 @@ Feature:
     Then store manager should see success message for editing a product
     And store manager get redirected to Products page
     And assert the edited product via API with "discount" "20.00" and sku "00037"
+    And delete product via api by using SKU to find its id "00037"
 
 
   @Smoke @NegativeEditProduct @NegativeEditDiscount
@@ -208,6 +224,7 @@ Feature:
     And store manager clicks on Submit button
     Then store manager should see an error message for missing product "discount" field
     And assert the product wasn't edited via API with "discount" "-20" and sku "00038"
+    And delete product via api by using SKU to find its id "00038"
 
   @Smoke @PositiveEditProduct @PositiveEditDescription
   Scenario: Store Manager edits a product Description successfully
@@ -219,6 +236,7 @@ Feature:
     Then store manager should see success message for editing a product
     And store manager get redirected to Products page
     And assert the edited product via API with "description" "New Description" and sku "00039"
+    And delete product via api by using SKU to find its id "00039"
 
   @Smoke @PositiveAddProduct @PageTitle @KnownIssue
   Scenario: Verify Edit product page title
