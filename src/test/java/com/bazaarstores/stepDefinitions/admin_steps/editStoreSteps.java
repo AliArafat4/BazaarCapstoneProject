@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.bazaarstores.stepDefinitions.admin_steps.deleteStoreSteps.storeName;
 import static com.bazaarstores.utilities.ApiUtilities.spec;
 import static com.bazaarstores.utilities.Driver.getDriver;
 import static org.hamcrest.CoreMatchers.*;
@@ -24,10 +25,10 @@ import static org.junit.Assert.assertTrue;
 public class editStoreSteps {
 
     AllPages allPages=new AllPages();
-    static String storeName;
-    static String storeLocation;
-    static String storeDescription;
-    static String storeAdmin;
+    static String newStoreName;
+    static String newStoreLocation;
+    static String newStoreDescription;
+    static String newStoreAdmin;
     static String storeId;
     public static String adminId;
 
@@ -35,17 +36,7 @@ public class editStoreSteps {
     static String field;
 
 
-    @When("the admin edits an existing store with details: {string}, {string}, {string}, {string}")
-    public void the_admin_edits_an_existing_store_with_details(String name, String location, String adminName, String description) {
 
-        storeName=name;
-        storeLocation=location;
-        storeAdmin=adminName;
-        storeDescription=description;
-
-        allPages.getAddStorePage().fillStoreData(name,location,adminName,description);
-
-    }
     @Then("the system should display a success message: Store updated successfully.")
     public void the_system_should_display_a_success_message_store_updated_successfully() {
         String successMsg=allPages.getAdminDashboardPage().getUpdateSuccessMessage();
@@ -55,7 +46,7 @@ public class editStoreSteps {
     @Then("the updated store should appear in the store list")
     public void the_updated_store_should_appear_in_the_store_list() {
 
-        assertTrue(allPages.getAdminDashboardPage().isStoreDisplayed(storeName));
+        assertTrue(allPages.getAdminDashboardPage().isStoreDisplayed(newStoreName));
 
     }
     @Then("verify that the store is updated via the API")
@@ -63,25 +54,22 @@ public class editStoreSteps {
 
         Response response = RestAssured.given(spec()).pathParam("id",storeId).get("/stores/{id}");
         response.then()
-                .body("name", equalTo(storeName))
-                .body("location", equalTo(storeLocation))
-                .body("description", equalTo("<p>"+storeDescription+"</p>"))
+                .body("name", equalTo(newStoreName))
+                .body("location", equalTo(newStoreLocation))
+                .body("description", equalTo("<p>"+newStoreDescription+"</p>"))
                 .body("admin_id", equalTo(Integer.parseInt(adminId)));
 
     }
 
     @And("clicks on the Edit Store button")
     public void clicksOnTheEditStoreButton() {
-        allPages.getAdminDashboardPage().clickEditStore();
+        allPages.getAdminDashboardPage().clickEditStore(storeName);
+        //get store id
         String[] arr =getDriver().getCurrentUrl().split("/");
         storeId=arr[arr.length-1];
     }
 
-    @And("the admin edits an existing store leaving the {string} field empty")
-    public void theAdminEditsAnExistingStoreLeavingTheFieldEmpty(String field) {
-      allPages.getAddStorePage().clearField(field);
 
-    }
 
     @And("verify that the store is not updated via API")
     public void verifyThatTheStoreIsNotUpdatedViaAPI() {
@@ -103,13 +91,6 @@ public class editStoreSteps {
     }
 
 
-    @And("the admin edits an existing store, updating the {string} field with value {string}")
-    public void theAdminEditsAnExistingStoreUpdatingTheFieldWithValue(String field, String value) {
-
-        editStoreSteps.value =value;
-        editStoreSteps.field =field;
-        allPages.getAddStorePage().updateOneField(field,value);
-    }
 
     @And("verify that the field is updated via the API")
     public void verifyThatTheFieldIsUpdatedViaTheAPI() {
@@ -126,4 +107,27 @@ public class editStoreSteps {
     }
 
 
+    @And("the admin edits the store with details: {string}, {string}, {string}, {string}")
+    public void theAdminEditsTheStoreWithDetails(String name, String location, String adminName, String description) {
+        newStoreName=name;
+        newStoreLocation=location;
+        newStoreAdmin=adminName;
+        newStoreDescription=description;
+
+        allPages.getAddStorePage().fillStoreData(name,location,adminName,description);
+
+    }
+
+    @And("the admin edits the store leaving the {string} field empty")
+    public void theAdminEditsTheStoreLeavingTheFieldEmpty(String field) {
+        allPages.getAddStorePage().clearField(field);
+
+    }
+
+    @And("the admin edits the store, updating the {string} field with value {string}")
+    public void theAdminEditsTheStoreUpdatingTheFieldWithValue(String field, String value) {
+        editStoreSteps.value =value;
+        editStoreSteps.field =field;
+        allPages.getAddStorePage().updateOneField(field,value);
+    }
 }
