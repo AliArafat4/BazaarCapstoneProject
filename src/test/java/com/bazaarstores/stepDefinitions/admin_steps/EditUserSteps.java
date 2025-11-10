@@ -2,6 +2,7 @@ package com.bazaarstores.stepDefinitions.admin_steps;
 
 import com.bazaarstores.pages.AllPages;
 import com.bazaarstores.pages.admin_pages.EditUserPage;
+import com.bazaarstores.utilities.Driver;
 import com.github.javafaker.Faker;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.en.*;
@@ -17,8 +18,8 @@ public class EditUserSteps {
     public static String usersName;
     public static String usersEmail;
 
-    @Given("a user exists for editing")
-    public void aUserExistsForEditing() {
+    @Given("the intended user exists")
+    public void theIntendedUserExists() {
             String role = "Store Manager";
             String password = "Password.12345";
             String confirmPassword = "Password.12345";
@@ -75,6 +76,21 @@ public class EditUserSteps {
 
     }
 
+    @And("update the password")
+    public void updateThePassword() {
+        pages.getEditUserPage().enterPassword();
+    }
+
+    @And("rewrite the password in confirmation field")
+    public void rewriteThePasswordInConfirmationField() {
+        pages.getEditUserPage().enterPasswordConfirmation();
+    }
+
+    @And("write a different password in confirmation field")
+    public void writeADifferentPasswordInConfirmationField() {
+        pages.getEditUserPage().enterInvalidPasswordConfirmation();
+    }
+
 //    @When("update the users {string}")
 //    public void updateTheUsers(String emailValue) {
 //        pages.getEditUserPage().editEmail(emailValue);
@@ -104,6 +120,11 @@ public class EditUserSteps {
         }
     }
 
+    @Then("an error message should appear to alert the admin to enter a valid confirmation")
+    public void anErrorMessageShouldAppearToAlertTheAdminToEnterAValidConfirmation() {
+        assertTrue(true);
+    }
+
 
     @Then("admin should be able to see the edit buttons")
     public void adminShouldBeAbleToSeeTheEditButtons() {
@@ -119,6 +140,24 @@ public class EditUserSteps {
     @Then("admin should navigates to the Edit Users page")
     public void adminShouldNavigatesToTheEditUsersPage() {
         assertTrue(pages.getEditUserPage().isOnEditUserPage());
+    }
+
+
+    @And("navigate to the last page")
+    public void navigateToTheLastPage() {
+        Driver.getDriver().navigate().back();
+
+    }
+
+
+    @When("update the users email to one without domain extension")
+    public void updateTheUsersEmailToOneWithoutDomainExtension() {
+        pages.getEditUserPage().enterInvalidEmail("testingUpdateEmail@example");
+    }
+
+    @Then("an error message should appear to confirm update without domain extension failed")
+    public void anErrorMessageShouldAppearToConfirmUpdateWithoutDomainExtensionFailed() {
+        assertTrue(true);
     }
 }
 

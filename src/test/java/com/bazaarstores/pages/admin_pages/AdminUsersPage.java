@@ -1,6 +1,8 @@
 package com.bazaarstores.pages.admin_pages;
 
 import com.bazaarstores.pages.BasePage;
+import com.bazaarstores.utilities.ConfigReader;
+import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -11,6 +13,14 @@ public class AdminUsersPage extends BasePage {
     private final By searchBar = By.xpath("//input[@name='email']");
     private final By searchButton = By.xpath("//button[@type='submit']");
     private final By editButton = By.xpath("//following-sibling::td//a[contains(@href, '/users/')]/i[contains(@class, 'bi-pencil-square')]");
+    private final By deleteButton = By.xpath("//i[contains(@class, 'bi-trash3')]/ancestor::button");
+    private final By confirmDeleteButton = By.xpath("//button[.='Yes, delete it!']");
+    private final By cancelDeleteButton = By.xpath("//button[.='Cancel']");
+    private final By failureToast = By.xpath("//div[contains(text(),'You cant delete a admin role users!')]");
+    private final By dashboardButton = By.xpath("//a[@href='https://bazaarstores.com' and contains(@class, 'sidebar-link')]");
+    private final By avtarImg = By.xpath("//img[@id='avatar']");
+    private final By logoutButton = By.xpath("//a[@href='https://bazaarstores.com/logout']");
+
 
 
     public AdminUsersPage goToUsersPage (){
@@ -27,50 +37,15 @@ public class AdminUsersPage extends BasePage {
         return isDisplayed(addUsersButton);
     }
 
-//    public boolean isUserInList(String userEmail) {
-//        By userCell = By.xpath("//td[normalize-space()='" + userEmail + "']");
-//        By nextButton = By.xpath("//ul[contains(@class,'pagination')]//a[normalize-space() = '›' or normalize-space() = '>' or normalize-space() = 'Next']");
-//
-//        // try pages until found or no next
-//        while (true) {
-//            if (isDisplayed(userCell)) {
-//                return true;
-//            }
-//
-//            // try to find a clickable Next button
-//            try {
-//                WebElement next = findElement(nextButton);
-//                if (!next.isDisplayed() || !next.isEnabled()) return false;
-//
-//                // remember something to detect page change (first row email)
-//                String before = "";
-//                try {
-//                    before = findElement(By.cssSelector("table tbody tr td:nth-child(2)")).getText();
-//                } catch (Exception ignored) {}
-//
-//                // click (JS fallback inside clickWithJS if needed)
-//                try { next.click(); } catch (Exception e) { clickWithJS(nextButton); }
-//
-//                // wait for table to refresh (either user appears or first-cell changes)
-//                long end = System.currentTimeMillis() + 5000;
-//                while (System.currentTimeMillis() < end) {
-//                    if (isDisplayed(userCell)) return true;
-//                    if (!before.isEmpty()) {
-//                        try {
-//                            String now = findElement(By.cssSelector("table tbody tr td:nth-child(2)")).getText();
-//                            if (!now.equals(before)) break; // page changed
-//                        } catch (Exception ignored) {}
-//                    }
-//                    try { Thread.sleep(200); } catch (InterruptedException ignored) {}
-//                }
-//            } catch (Exception e) {
-//                // no next button => we're done
-//                return false;
-//            }
-//        }
-//    }
 
     public boolean isUserInList(String userEmail) {
+        findElement(searchBar).sendKeys(userEmail);
+        click(searchButton);
+        By userCell = By.xpath("//td[normalize-space()='" + userEmail + "']");
+        return isDisplayed(userCell);
+    }
+
+    public boolean isAdminInList(String userEmail) {
         findElement(searchBar).sendKeys(userEmail);
         click(searchButton);
         By userCell = By.xpath("//td[normalize-space()='" + userEmail + "']");
@@ -93,4 +68,33 @@ public class AdminUsersPage extends BasePage {
         return isDisplayed(editButton);
     }
 
+    public void clickDeleteButton(){
+        click(deleteButton);
+    }
+
+    public void clickConfirmDeleteButton(){
+        click(confirmDeleteButton);
+    }
+
+    public void clickCancelDeleteButton(){
+        click(cancelDeleteButton);
+    }
+
+    public boolean deleteUsersIsVisible() {
+        return isDisplayed(deleteButton);
+    }
+
+    public boolean deleteConfirmationAlertIsVisible() {
+        return isDisplayed(confirmDeleteButton) && isDisplayed(cancelDeleteButton);
+    }
+
+    public String getFailureMessage() {
+        return getText(failureToast);
+    }
+
+    public void logout() {
+        clickWithJS(dashboardButton);
+        click(avtarImg);
+        click(logoutButton);
+    }
 }
