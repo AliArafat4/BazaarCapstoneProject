@@ -1,4 +1,4 @@
-@AddUser
+@AddUser @TestZahra
 Feature: add new user
 
   Background:
@@ -43,6 +43,17 @@ Feature: add new user
       | Zahra | adminsda.com            | Store Manager | Password.12345 | Password.12345  | Please include an '@' in the email address.    |
       | Zahra | admin@@sda.com          | Store Manager | Password.12345 | Password.12345  | A part following '@' should not contain the symbol '@'.    |
       | Zahra | missingDomain@sda       | Store Manager | Password.12345 | Password.12345  | missing domain extension (.com)                |
+
+
+  @US15TC13 @Negative @testAdd @KnownIssue
+  Scenario: Add user with invalid email without domain extension
+    When admin navigates to the Users page
+    And clicks on Add Users button
+    And capture current users count
+    And admin enters Name, email@example, Role, Password, and PasswordConfirmation
+    And clicks on Submit button
+    Then an error message should appear to prevent user addition
+    And assert the invalid email account was not created addition via API
 
 
 

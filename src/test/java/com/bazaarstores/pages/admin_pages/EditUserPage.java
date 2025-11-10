@@ -17,11 +17,15 @@ public class EditUserPage extends BasePage {
     private final By successToast = By.xpath("//div[contains(text(),'User updated successfully')]");
     private final By pageTitle = By.xpath("//h4[@class='card-title'][.='Edit Users']");
 
-    Faker faker = new Faker();
+    //Faker faker = new Faker();
+
+    public static String newName = Faker.instance().name().fullName();
+    public static String enteredEmail = Faker.instance().internet().emailAddress();
 
     public void editName() {
         //findElement(email).clear();
-        findElement(name).sendKeys(faker.name().fullName());
+
+        findElement(name).sendKeys(newName);
     }
 
     public void editRole() {
@@ -40,12 +44,24 @@ public class EditUserPage extends BasePage {
 
     public void editEmail() {
         findElement(email).clear();
-        findElement(email).sendKeys(faker.internet().emailAddress());
+        findElement(email).sendKeys(enteredEmail);
     }
 
     public void enterInvalidEmail(String invalidEmail) {
         findElement(email).clear();
         findElement(email).sendKeys(invalidEmail);
+    }
+
+    public void enterPassword() {
+        findElement(password).sendKeys("Pass@12345");
+    }
+
+    public void enterPasswordConfirmation() {
+        findElement(passwordConfirmation).sendKeys("Pass@12345");
+    }
+
+    public void enterInvalidPasswordConfirmation() {
+        findElement(passwordConfirmation).sendKeys("Pass$$1234$");
     }
 
     public EditUserPage clickSubmit() {
@@ -75,4 +91,7 @@ public class EditUserPage extends BasePage {
     public boolean isOnEditUserPage() {
         return isDisplayed(pageTitle) ;
     }
+
+
+
 }

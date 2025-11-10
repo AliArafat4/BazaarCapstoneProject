@@ -1,6 +1,7 @@
 package com.bazaarstores.pages.admin_pages;
 
 import com.bazaarstores.pages.BasePage;
+import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -26,6 +27,7 @@ public class AdminDashboardPage extends BasePage {
     private String deleteStoreByName ="//td[text()='%s']/following-sibling::*[3]/button[contains(@onclick,\"confirmDelete\")]";
     private String updateStoreByName ="//td[text()='%s']/following-sibling::*[3]/button/a";
 
+    private final By usersButton = By.xpath("//span[text()='Users']"); // Youmna's addition
 
     private final String[] cloumns={"Name","Description","Location", "Admin Name",  "Actions"};
 
@@ -104,5 +106,10 @@ public class AdminDashboardPage extends BasePage {
 
     public void clickConfirmDelete() {
         click(confirmDelete);
+    //Youmna's addition
+    public ViewUsersPage clickUsersMenu(){
+
+        Driver.getDriver().findElement(usersButton).click();
+        return new ViewUsersPage();
     }
 }

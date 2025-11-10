@@ -185,4 +185,15 @@ public class AddProductsSteps {
     public void storeManagerShouldBeAbleToSeeAllInputFieldsOnAddProductPage() {
         Assert.assertTrue(allPages.getAddProductsPage().areAllInputFieldsVisible());
     }
+
+    @And("delete product via api by using SKU to find its id {string}")
+    public void deleteProductViaApiByUsingSKUToFindItsId(String sku) {
+        Response response = RestAssured.given(spec()).get("/products");
+
+        JsonPath jsonPath = response.jsonPath();
+        String id = jsonPath.getString("find{it.sku=='" + sku + "'}.id");
+
+        RestAssured.given(spec()).delete("/products/" + id );
+
+    }
 }
