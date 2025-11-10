@@ -1,10 +1,11 @@
 package com.bazaarstores.pages;
 
-import com.bazaarstores.pages.admin_pages.AddStorePage;
+import com.bazaarstores.pages.admin_pages.AddEditStorePage;
 import com.bazaarstores.pages.admin_pages.AdminDashboardPage;
 
 import com.bazaarstores.pages.admin_pages.AddUserPage;
 import com.bazaarstores.pages.admin_pages.AdminUsersPage;
+import com.bazaarstores.pages.admin_pages.*;
 
 
 import com.bazaarstores.pages.customer_pages.CustomerCart;
@@ -12,6 +13,7 @@ import com.bazaarstores.pages.customer_pages.CustomerCartConfirmation;
 import com.bazaarstores.pages.customer_pages.CustomerFavorite;
 import com.bazaarstores.pages.login_pages.LoginPage;
 import com.bazaarstores.pages.store_manager_pages.AddProductPage;
+import com.bazaarstores.pages.store_manager_pages.EditProductPage;
 import com.bazaarstores.pages.store_manager_pages.ProductsPage;
 import com.bazaarstores.pages.store_manager_pages.StoreManagerDashboardPage;
 
@@ -27,7 +29,9 @@ public class AllPages {
     private AdminDashboardPage adminDashboardPage;
     private AdminUsersPage adminUsersPage;
     private AddUserPage addUserPage;
-    private AddStorePage addStorePage;
+    private AddEditStorePage addEditStorePage;
+    private EditUserPage editUserPage;
+    private EditProductPage editProductPage;
 
     private StoreManagerDashboardPage storeManagerDashboardPage;
     private ProductsPage productsPage;
@@ -37,7 +41,6 @@ public class AllPages {
     private CustomerFavorite customerFavorite;
     private CustomerCart customerCart;
     private CustomerCartConfirmation customerCartConfirmation;
-
 
     public LoginPage getLoginPage() {
         if (loginPage == null) {
@@ -83,11 +86,11 @@ public class AllPages {
         return addUserPage;
     }
 
-    public AddStorePage getAddStorePage() {
-        if (addStorePage == null) {
-            addStorePage = new AddStorePage();
+    public AddEditStorePage getAddStorePage() {
+        if (addEditStorePage == null) {
+            addEditStorePage = new AddEditStorePage();
         }
-        return addStorePage;
+        return addEditStorePage;
     }
 
     public StoreManagerDashboardPage getStoreManagerDashboardPage() {
@@ -118,6 +121,13 @@ public class AllPages {
         return customerMainPage;
     }
 
+    public EditUserPage getEditUserPage() {
+        if (editUserPage == null) {
+            editUserPage = new EditUserPage();
+        }
+        return editUserPage;
+    }
+
 
     public CustomerFavorite getCustomerFavorite() {
         if (customerFavorite == null) {
@@ -125,6 +135,7 @@ public class AllPages {
         }
         return customerFavorite;
     }
+
 
 
     // CustomerCart
@@ -140,6 +151,14 @@ public class AllPages {
             customerCartConfirmation = new CustomerCartConfirmation();
         }
         return customerCartConfirmation;
+    }
+
+
+    public EditProductPage getEditProductPage() {
+        if (editProductPage == null) {
+            editProductPage = new EditProductPage();
+        }
+        return editProductPage;
     }
 
 }

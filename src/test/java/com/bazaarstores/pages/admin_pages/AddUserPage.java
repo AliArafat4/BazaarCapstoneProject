@@ -1,11 +1,10 @@
 package com.bazaarstores.pages.admin_pages;
 
 import com.bazaarstores.pages.BasePage;
-import com.bazaarstores.utilities.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,31 +73,71 @@ public class AddUserPage extends BasePage {
         return getText(successToast);
     }
 
+//    public List<String> getAllValidationMessages() {
+//
+//        List<WebElement> elements;
+//
+//        try {
+//            waitForElementToBeVisible(validationListItems);
+//            elements = findElements(validationListItems);
+//        } catch (Exception e) {
+//            // No elements visible or alert not present yet
+//            return List.of();
+//        }
+//
+//        return elements.stream()
+//                .map(WebElement::getText)
+//                .map(String::trim)
+//                .filter(text -> !text.isEmpty())
+//                .collect(Collectors.toList());
+//
+//    }
+
     public List<String> getAllValidationMessages() {
+        List<String> messages = new ArrayList<>();
 
-        List<WebElement> elements;
-
+        // Try to collect visible validation text elements
         try {
             waitForElementToBeVisible(validationListItems);
-            elements = findElements(validationListItems);
+            List<WebElement> elements = findElements(validationListItems);
+            elements.stream()
+                    .map(WebElement::getText)
+                    .map(String::trim)
+                    .filter(text -> !text.isEmpty())
+                    .forEach(messages::add);
         } catch (Exception e) {
-            // No elements visible or alert not present yet
-            return List.of();
+            // No visible validation list items found
         }
 
-        return elements.stream()
-                .map(WebElement::getText)
-                .map(String::trim)
-                .filter(text -> !text.isEmpty())
-                .collect(Collectors.toList());
+        //  Capture browser-native validation messages (like "Please include an '@'")
+        List<By> inputFields = List.of(
+                By.name("email"),
+                By.name("name"),
+                By.name("password"),
+                By.name("confirmPassword")
+        );
 
+        for (By field : inputFields) {
+            try {
+                WebElement element = findElement(field);
+                String message = element.getAttribute("validationMessage");
+                if (message != null && !message.isEmpty()) {
+                    messages.add(message.trim());
+                }
+            } catch (Exception ignored) {
+                // skip fields not found
+            }
+        }
+
+        return messages;
     }
+
 
     public boolean isOnAddUserPage() {
         return isDisplayed(pageTitle) ;
     }
 
-    public boolean submitButtonIsVisible(){
+    public boolean isSubmitButtonVisible(){
         return isDisplayed(submitButton);
     }
 

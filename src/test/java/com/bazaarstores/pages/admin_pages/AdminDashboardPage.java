@@ -15,21 +15,27 @@ public class AdminDashboardPage extends BasePage {
     private final By deleteStoreBtn=By.xpath("//table[contains(@class,'table')]/tbody//td/button[contains(@onClick,\"confirmDelete\")]");
     private final By addStoreBtn=By.xpath("//a[text()='ADD STORE']");
     private final By successToast = By.xpath("//div[contains(text(),'Store created successfully')]");
+    private final By updateSuccessToast = By.xpath("//div[contains(text(),'Store updated successfully')]");
     private final By errorToast = By.xpath("//div[contains(text(),'Store creation failed')]");
-    private String storeName="//table//tbody//tr[td[contains(normalize-space(.),'%s')]]";
+    private final By updateErrorToast = By.xpath("//div[contains(text(),'Store update failed')]");
+    private String storeLocator ="//table//tbody//tr[td[contains(normalize-space(.),'%s')]]";
 
 
     private final String[] cloumns={"Name","Description","Location", "Admin Name",  "Actions"};
 
     public AdminDashboardPage clickStoresLink() {
-        click(storesLink);
+        clickWithJS(storesLink);
         return this;
 
     }
 
-    public AddStorePage clickAddStore() {
+    public AddEditStorePage clickAddStore() {
         click(addStoreBtn);
-        return new AddStorePage();
+        return new AddEditStorePage();
+    }
+    public AddEditStorePage clickEditStore() {
+        click(editStoreBtn);
+        return new AddEditStorePage();
     }
 
     public boolean isStoresTableDisplayed(){
@@ -58,11 +64,19 @@ public class AdminDashboardPage extends BasePage {
         return getText(successToast);
     }
 
+    public String getUpdateSuccessMessage() {
+        return getText(updateSuccessToast);
+    }
+
     public boolean isErrorMessageDisplayed() {
         return isDisplayed(errorToast);
     }
 
-    public boolean isStoreDisplayed(String name) {
-        return isDisplayed(By.xpath(String.format(storeName,name)));
+    public boolean isUpdateErrorMessageDisplayed() {
+        return isDisplayed(updateErrorToast);
+    }
+
+    public boolean isStoreDisplayed(String text) {
+        return isDisplayed(By.xpath(String.format(storeLocator,text)));
     }
 }
