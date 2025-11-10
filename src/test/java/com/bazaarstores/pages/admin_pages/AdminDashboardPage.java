@@ -16,9 +16,14 @@ public class AdminDashboardPage extends BasePage {
     private final By addStoreBtn=By.xpath("//a[text()='ADD STORE']");
     private final By successToast = By.xpath("//div[contains(text(),'Store created successfully')]");
     private final By updateSuccessToast = By.xpath("//div[contains(text(),'Store updated successfully')]");
+    private final By deleteSuccessToast = By.xpath("//div[contains(text(),'Store deleted successfully')]");
     private final By errorToast = By.xpath("//div[contains(text(),'Store creation failed')]");
     private final By updateErrorToast = By.xpath("//div[contains(text(),'Store update failed')]");
+    private final By deleteDialog = By.xpath("//div[@aria-labelledby='swal2-title']");
+    private final By confirmDelete = By.xpath("//button[text()='Yes, delete it!']");
+    private final By cancelDelete = By.xpath("//button[text()='Cancel']");
     private String storeLocator ="//table//tbody//tr[td[contains(normalize-space(.),'%s')]]";
+    private String deleteStoreByName ="//td[text()='%s']/following-sibling::*[3]/button[contains(@onclick,\"confirmDelete\")]";
 
 
     private final String[] cloumns={"Name","Description","Location", "Admin Name",  "Actions"};
@@ -36,6 +41,10 @@ public class AdminDashboardPage extends BasePage {
     public AddEditStorePage clickEditStore() {
         click(editStoreBtn);
         return new AddEditStorePage();
+    }
+    public AdminDashboardPage clickDeleteStore(String name) {
+        clickWithJS(By.xpath(String.format(deleteStoreByName,name)));
+        return this;
     }
 
     public boolean isStoresTableDisplayed(){
@@ -76,7 +85,23 @@ public class AdminDashboardPage extends BasePage {
         return isDisplayed(updateErrorToast);
     }
 
+    public boolean isDeleteMessageDisplayed() {
+        return isDisplayed(deleteSuccessToast);
+    }
+
     public boolean isStoreDisplayed(String text) {
         return isDisplayed(By.xpath(String.format(storeLocator,text)));
+    }
+
+    public boolean isDialogDisplayed() {
+       return isDisplayed(deleteDialog);
+    }
+
+    public void clickCancelDelete() {
+        click(cancelDelete);
+    }
+
+    public void clickConfirmDelete() {
+        click(confirmDelete);
     }
 }
