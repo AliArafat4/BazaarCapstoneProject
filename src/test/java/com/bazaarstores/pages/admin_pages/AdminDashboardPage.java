@@ -1,6 +1,7 @@
 package com.bazaarstores.pages.admin_pages;
 
 import com.bazaarstores.pages.BasePage;
+import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -20,6 +21,7 @@ public class AdminDashboardPage extends BasePage {
     private final By updateErrorToast = By.xpath("//div[contains(text(),'Store update failed')]");
     private String storeLocator ="//table//tbody//tr[td[contains(normalize-space(.),'%s')]]";
 
+    private final By usersButton = By.xpath("//span[text()='Users']"); // Youmna's addition
 
     private final String[] cloumns={"Name","Description","Location", "Admin Name",  "Actions"};
 
@@ -78,5 +80,12 @@ public class AdminDashboardPage extends BasePage {
 
     public boolean isStoreDisplayed(String text) {
         return isDisplayed(By.xpath(String.format(storeLocator,text)));
+    }
+
+    //Youmna's addition
+    public ViewUsersPage clickUsersMenu(){
+
+        Driver.getDriver().findElement(usersButton).click();
+        return new ViewUsersPage();
     }
 }

@@ -30,6 +30,7 @@ public class AllPages {
     private AddEditStorePage addEditStorePage;
     private EditUserPage editUserPage;
     private EditProductPage editProductPage;
+    private ViewUsersPage viewUsersPage;
 
     private StoreManagerDashboardPage storeManagerDashboardPage;
     private ProductsPage productsPage;
@@ -138,5 +139,12 @@ public class AllPages {
             editProductPage = new EditProductPage();
         }
         return editProductPage;
+    }
+
+    public ViewUsersPage getViewUsersPage() {
+        if (viewUsersPage == null) {
+            viewUsersPage = new ViewUsersPage();
+        }
+        return viewUsersPage;
     }
 }
