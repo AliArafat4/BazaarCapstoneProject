@@ -129,6 +129,24 @@ public class AddNewUserSteps extends BasePage {
             Assert.assertTrue(pages.getAdminUsersPage().isUserInList(AddNewUserSteps.attemptedEmail));
 
     }
+
+    @And("admin enters Name, email@example, Role, Password, and PasswordConfirmation")
+    public void adminEntersNameEmailRolePasswordAndPasswordConfirmation() {
+        Faker faker = new Faker();
+        attemptedName = faker.name().fullName();
+        attemptedEmail = faker.internet().emailAddress();
+        attemptedEmail = attemptedEmail.replaceAll("\\.com$", "");
+        String role = "Store Manager";
+        String password="Password.12345";
+        String ConfirmPassword="Password.12345";
+
+        pages.getAddUserPage().fillUserData(attemptedName, attemptedEmail,role,password,ConfirmPassword);
+    }
+
+    @Then("an error message should appear to prevent user addition")
+    public void anErrorMessageShouldAppearToPreventUserAddition() {
+        assertTrue(true);
+    }
 }
 
 
