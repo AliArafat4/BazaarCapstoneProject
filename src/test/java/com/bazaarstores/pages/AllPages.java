@@ -1,0 +1,171 @@
+package com.bazaarstores.pages;
+
+import com.bazaarstores.pages.admin_pages.AddEditStorePage;
+import com.bazaarstores.pages.admin_pages.AdminDashboardPage;
+
+import com.bazaarstores.pages.admin_pages.AddUserPage;
+import com.bazaarstores.pages.admin_pages.AdminUsersPage;
+import com.bazaarstores.pages.admin_pages.*;
+
+
+import com.bazaarstores.pages.customer_pages.CustomerCart;
+import com.bazaarstores.pages.customer_pages.CustomerCartConfirmation;
+import com.bazaarstores.pages.customer_pages.CustomerFavorite;
+import com.bazaarstores.pages.login_pages.LoginPage;
+import com.bazaarstores.pages.store_manager_pages.AddProductPage;
+import com.bazaarstores.pages.store_manager_pages.EditProductPage;
+import com.bazaarstores.pages.store_manager_pages.ProductsPage;
+import com.bazaarstores.pages.store_manager_pages.StoreManagerDashboardPage;
+
+import com.bazaarstores.pages.customer_pages.CustomerMainPage;
+import com.bazaarstores.pages.register_pages.RegistrationPage;
+
+
+public class AllPages {
+
+    private LoginPage loginPage;
+    private RegistrationPage registrationPage;
+    private DashboardPage dashboardPage;
+    private AdminDashboardPage adminDashboardPage;
+    private AdminUsersPage adminUsersPage;
+    private AddUserPage addUserPage;
+    private AddEditStorePage addEditStorePage;
+    private EditUserPage editUserPage;
+    private EditProductPage editProductPage;
+    private ViewUsersPage viewUsersPage;
+
+    private StoreManagerDashboardPage storeManagerDashboardPage;
+    private ProductsPage productsPage;
+    private AddProductPage addProductsPage;
+
+    private CustomerMainPage customerMainPage;
+    private CustomerFavorite customerFavorite;
+    private CustomerCart customerCart;
+    private CustomerCartConfirmation customerCartConfirmation;
+
+    public LoginPage getLoginPage() {
+        if (loginPage == null) {
+            loginPage = new LoginPage();
+        }
+        return loginPage;
+    }
+
+    public RegistrationPage getRegistrationPage() {
+        if (registrationPage == null) {
+            registrationPage = new RegistrationPage();
+        }
+        return registrationPage;
+    }
+
+    public DashboardPage getDashboardPage() {
+        if (dashboardPage == null) {
+            dashboardPage = new DashboardPage();
+        }
+        return dashboardPage;
+    }
+
+    public AdminDashboardPage getAdminDashboardPage() {
+        if (adminDashboardPage == null) {
+            adminDashboardPage = new AdminDashboardPage();
+        }
+        return adminDashboardPage;
+    }
+
+
+    public AdminUsersPage getAdminUsersPage() {
+        if (adminUsersPage == null) {
+            adminUsersPage = new AdminUsersPage();
+        }
+        return adminUsersPage;
+    }
+
+
+    public AddUserPage getAddUserPage() {
+        if (addUserPage == null) {
+            addUserPage = new AddUserPage();
+        }
+        return addUserPage;
+    }
+
+    public AddEditStorePage getAddStorePage() {
+        if (addEditStorePage == null) {
+            addEditStorePage = new AddEditStorePage();
+        }
+        return addEditStorePage;
+    }
+
+    public StoreManagerDashboardPage getStoreManagerDashboardPage() {
+        if (storeManagerDashboardPage == null) {
+            storeManagerDashboardPage = new StoreManagerDashboardPage();
+        }
+        return storeManagerDashboardPage;
+    }
+
+    public ProductsPage getProductsPage() {
+        if (productsPage == null) {
+            productsPage = new ProductsPage();
+        }
+        return productsPage;
+    }
+
+    public AddProductPage getAddProductsPage() {
+        if (addProductsPage == null) {
+            addProductsPage = new AddProductPage();
+        }
+        return addProductsPage;
+    }
+
+    public CustomerMainPage getCustomerMainPage() {
+        if (customerMainPage == null) {
+            customerMainPage = new CustomerMainPage();
+        }
+        return customerMainPage;
+    }
+
+    public EditUserPage getEditUserPage() {
+        if (editUserPage == null) {
+            editUserPage = new EditUserPage();
+        }
+        return editUserPage;
+    }
+
+
+    public CustomerFavorite getCustomerFavorite() {
+        if (customerFavorite == null) {
+            customerFavorite = new CustomerFavorite();
+        }
+        return customerFavorite;
+    }
+
+
+
+    // CustomerCart
+    public CustomerCart getCustomerCart() {
+        if (customerCart == null) {
+            customerCart = new CustomerCart();
+        }
+        return customerCart;
+    }
+
+    public CustomerCartConfirmation getCustomerCartConfirmation() {
+        if (customerCartConfirmation == null) {
+            customerCartConfirmation = new CustomerCartConfirmation();
+        }
+        return customerCartConfirmation;
+    }
+
+
+    public EditProductPage getEditProductPage() {
+        if (editProductPage == null) {
+            editProductPage = new EditProductPage();
+        }
+        return editProductPage;
+    }
+
+    public ViewUsersPage getViewUsersPage() {
+        if (viewUsersPage == null) {
+            viewUsersPage = new ViewUsersPage();
+        }
+        return viewUsersPage;
+    }
+}
