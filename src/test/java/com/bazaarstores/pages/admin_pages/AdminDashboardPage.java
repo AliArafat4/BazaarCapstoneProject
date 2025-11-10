@@ -9,12 +9,12 @@ import java.util.List;
 
 public class AdminDashboardPage extends BasePage {
 
-    private final By storesLink = By.xpath("//a/span[text()='Store']");
-    private final By storesTable = By.xpath("//table[contains(@class,'table')]");
-    private final By tableColumns = By.xpath("//table[contains(@class,'table')]/thead//th");
-    private final By editStoreBtn = By.xpath("//table[contains(@class,'table')]/tbody//td/button//a");
-    private final By deleteStoreBtn = By.xpath("//table[contains(@class,'table')]/tbody//td/button[contains(@onClick,\"confirmDelete\")]");
-    private final By addStoreBtn = By.xpath("//a[text()='ADD STORE']");
+    private final By storesLink=By.xpath("//a/span[text()='Store']");
+    private final By storesTable=By.xpath("//table[contains(@class,'table')]");
+    private final By tableColumns=By.xpath("//table[contains(@class,'table')]/thead//th");
+    private final By editStoreBtn=By.xpath("//table[contains(@class,'table')]/tbody//td/button//a");
+    private final By deleteStoreBtn=By.xpath("//table[contains(@class,'table')]/tbody//td/button[contains(@onClick,\"confirmDelete\")]");
+    private final By addStoreBtn=By.xpath("//a[text()='ADD STORE']");
     private final By successToast = By.xpath("//div[contains(text(),'Store created successfully')]");
     private final By updateSuccessToast = By.xpath("//div[contains(text(),'Store updated successfully')]");
     private final By deleteSuccessToast = By.xpath("//div[contains(text(),'Store deleted successfully')]");
@@ -23,13 +23,13 @@ public class AdminDashboardPage extends BasePage {
     private final By deleteDialog = By.xpath("//div[@aria-labelledby='swal2-title']");
     private final By confirmDelete = By.xpath("//button[text()='Yes, delete it!']");
     private final By cancelDelete = By.xpath("//button[text()='Cancel']");
-    private String storeLocator = "//table//tbody//tr[td[contains(normalize-space(.),'%s')]]";
-    private String deleteStoreByName = "//td[text()='%s']/following-sibling::*[3]/button[contains(@onclick,\"confirmDelete\")]";
-    private String updateStoreByName = "//td[text()='%s']/following-sibling::*[3]/button/a";
+    private String storeLocator ="//table//tbody//tr[td[contains(normalize-space(.),'%s')]]";
+    private String deleteStoreByName ="//td[text()='%s']/following-sibling::*[3]/button[contains(@onclick,\"confirmDelete\")]";
+    private String updateStoreByName ="//td[text()='%s']/following-sibling::*[3]/button/a";
 
     private final By usersButton = By.xpath("//span[text()='Users']"); // Youmna's addition
 
-    private final String[] cloumns = {"Name", "Description", "Location", "Admin Name", "Actions"};
+    private final String[] cloumns={"Name","Description","Location", "Admin Name",  "Actions"};
 
     public AdminDashboardPage clickStoresLink() {
         clickWithJS(storesLink);
@@ -41,28 +41,27 @@ public class AdminDashboardPage extends BasePage {
         click(addStoreBtn);
         return new AddEditStorePage();
     }
-
     public AddEditStorePage clickEditStore(String name) {
-        clickWithJS(By.xpath(String.format(updateStoreByName, name)));
+        clickWithJS(By.xpath(String.format(updateStoreByName,name)));
         return new AddEditStorePage();
     }
-
     public AdminDashboardPage clickDeleteStore(String name) {
-        clickWithJS(By.xpath(String.format(deleteStoreByName, name)));
+        clickWithJS(By.xpath(String.format(deleteStoreByName,name)));
         return this;
     }
 
-    public boolean isStoresTableDisplayed() {
-        return isDisplayed(storesTable);
+    public boolean isStoresTableDisplayed(){
+       return isDisplayed(storesTable);
     }
 
     public boolean verifyAllColumnsDisplayed() {
-        List<WebElement> columns = findElements(tableColumns);
-        if (columns.size() < 5) {
+        List<WebElement> columns=findElements(tableColumns);
+        if (columns.size()<5){
             return false;
-        } else {
-            for (int i = 0; i < 5; i++) {
-                if (!columns.get(i).getText().equalsIgnoreCase(cloumns[i]))
+        }
+        else {
+            for(int i=0;i<5;i++) {
+                if(! columns.get(i).getText().equalsIgnoreCase(cloumns[i]))
                     return false;
             }
             return true;
@@ -94,24 +93,23 @@ public class AdminDashboardPage extends BasePage {
     }
 
     public boolean isStoreDisplayed(String text) {
-        return isDisplayed(By.xpath(String.format(storeLocator, text)));
+        return isDisplayed(By.xpath(String.format(storeLocator,text)));
     }
 
     public boolean isDialogDisplayed() {
-        return isDisplayed(deleteDialog);
+       return isDisplayed(deleteDialog);
     }
 
     public void clickCancelDelete() {
         click(cancelDelete);
     }
 
-    public void clickConfirmDelete() { click(confirmDelete); }
-
+    public void clickConfirmDelete() {
+        click(confirmDelete);
     //Youmna's addition
-    public ViewUsersPage clickUsersMenu() {
+    public ViewUsersPage clickUsersMenu(){
 
         Driver.getDriver().findElement(usersButton).click();
         return new ViewUsersPage();
     }
-
 }
