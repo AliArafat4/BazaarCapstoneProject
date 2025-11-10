@@ -67,41 +67,6 @@ public class ApiSteps {
 
     @And("assert the invalid user addition via API")
     public void assertTheInvalidUserAdditionViaAPI() {
-//
-//        Response response = ApiHelper.fetchAllUsersResponse();
-//
-//       // response.prettyPrint();
-//
-//        JsonPath jsonPath = response.jsonPath();
-//
-//        Integer before;
-//
-//        // 1) if email was provided in the test, assert there is no user with that email
-//        if (AddNewUserSteps.attemptedEmail != null && !AddNewUserSteps.attemptedEmail.isBlank()) {
-//            String actualEmail = jsonPath.getString("find{ it.email == '" + AddNewUserSteps.attemptedEmail + "' }.email");
-//            assertNull("Expected no user with email: " + AddNewUserSteps.attemptedEmail + " but found one.", actualEmail);
-//            return;
-//        }else{
-//             before = ApiHelper.getUsersBeforeAddCount();
-//            if (before == null) {
-//                throw new IllegalStateException("usersBeforeAddCount was not captured. Call 'capture current users count' before submitting when expecting count-based assertion.");
-//            }
-//        }
-//
-////        // 2) else if name was provided, assert there is no user with that name
-////        if (AddNewUserSteps.attemptedName != null && !AddNewUserSteps.attemptedName.isBlank()) {
-////            String actualName = jsonPath.getString("find{ it.name == '" + AddNewUserSteps.attemptedName + "' }.name");
-////            assertNull("Expected no user with name: " + AddNewUserSteps.attemptedName + " but found one.", actualName);
-////            return;
-////        }
-//
-//        // 3) else neither email nor name provided -> use count-based assertion
-//
-//
-//        List<?> users = jsonPath.getList("$");
-//        int afterCount = users == null ? 0 : users.size();
-//
-//        assertEquals("Expected no new users to be created", before.intValue(), afterCount);
 
         // Fetch API response
         Response response = ApiHelper.fetchAllUsersResponse();
@@ -112,7 +77,7 @@ public class ApiSteps {
 
         assertNotNull("Users before-add count was not captured. Ensure 'capture current users count' ran successfully.", beforeCount);
 
-        // 🔹 CASE 1: Email provided → assert it doesn’t exist in API
+        // CASE 1: Email provided → assert it doesn’t exist in API
         if (attemptedEmail != null && !attemptedEmail.isBlank()) {
 
             List<String> allEmails = jsonPath.getList("email");
@@ -125,11 +90,10 @@ public class ApiSteps {
                     0, count
             );
 
-            System.out.println("✅ Verified: invalid email '" + attemptedEmail + "' was not added to the API.");
             return;
         }
 
-        // 🔹 CASE 2: No email provided → fallback to user count comparison
+        // CASE 2: No email provided → fallback to user count comparison
         List<?> users = jsonPath.getList("$");
         int afterCount = (users == null) ? 0 : users.size();
 
