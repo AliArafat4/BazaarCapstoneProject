@@ -130,14 +130,14 @@ public class AllPages {
     // CustomerCart
     public CustomerCart getCustomerCart() {
         if (customerCart == null) {
-            customerCart = new CustomerCart(); // هنا ننشئ Cart مرة واحدة
+            customerCart = new CustomerCart();
         }
         return customerCart;
     }
 
     public CustomerCartConfirmation getCustomerCartConfirmation() {
         if (customerCartConfirmation == null) {
-            customerCartConfirmation = new CustomerCartConfirmation(); // إنشاء مرة واحدة
+            customerCartConfirmation = new CustomerCartConfirmation();
         }
         return customerCartConfirmation;
     }
