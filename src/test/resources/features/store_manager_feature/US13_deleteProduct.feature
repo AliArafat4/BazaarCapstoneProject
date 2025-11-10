@@ -1,6 +1,5 @@
 @Regression @DeleteProduct
-Feature:
-  Store Manager Delete Product Feature
+Feature: Store Manager Delete Product Feature
 
   Background:
     Given user is in home page
@@ -20,13 +19,16 @@ Feature:
     And assert the deleted product via API with sku "00040"
 
 
-  @Smoke @PositiveDeleteProduct @ @PositiveDeletionMessage
+  @Smoke @PositiveDeleteProduct @PositiveDeletionMessage
   Scenario: Store Manager attempts to delete product and get delete dialogue message
     Given product is available in the list with name "sample book23", price "10", stock "10", and sku "00041"
     Then assert the new product via API with name "sample book23" and sku "00041"
     When store manager clicks on Delete Product Button for "sample book23" product
     Then delete dialogue shows with alert message "Are you sure? You won't be able to revert this!"
-
+    #just to delete the product - not part of the actual test
+    And store manager confirms deletion of Product
+    Then store manager should see success message for deleting a product
+    And assert the deleted product via API with sku "00041"
 
   @Smoke @PositiveDeleteProduct @PositiveDeleteCancel
   Scenario: Store Manager attempts to delete product and then cancels
@@ -35,7 +37,12 @@ Feature:
     When store manager clicks on Delete Product Button for "sample book24" product
     And store manager cancels deletion of Product
     Then assert the product is not deleted via API with sku "00042"
-
+    #just to delete the product - not part of the actual test
+    When store manager clicks on Delete Product Button for "sample book24" product
+    And delete dialogue shows
+    And store manager confirms deletion of Product
+    Then store manager should see success message for deleting a product
+    And assert the deleted product via API with sku "00042"
 
   @Smoke @PositiveDeleteProduct @PositiveDeleteDialogue
   Scenario:Store Manager attempts to delete product and sees an alert
@@ -43,3 +50,7 @@ Feature:
     Then assert the new product via API with name "sample book25" and sku "00043"
     When store manager clicks on Delete Product Button for "sample book25" product
     Then delete dialogue shows
+    #just to delete the product - not part of the actual test
+    And store manager confirms deletion of Product
+    Then store manager should see success message for deleting a product
+    And assert the deleted product via API with sku "00042"

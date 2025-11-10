@@ -58,6 +58,7 @@ public class ProductsPage extends BasePage {
         scrollToElement(deleteButton);
         waitUntilElementIsFullyInView(deleteButton, 5);
         click(deleteButton);
+
         return this;
     }
 

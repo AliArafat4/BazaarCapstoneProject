@@ -1,13 +1,12 @@
 @Regression @AddProduct
-Feature:
-  Store Manager Add Product Feature
+Feature: Store Manager Add Product Feature
 
   Background:
     Given user is in home page
     When user enters email "storemanager@sda.com" and password "Password.12345"
     And user clicks login button
 
-  @Smoke @PositiveAddProduct
+  @Smoke @PositiveAddProduct @sss
   Scenario: Store Manager adds a new product with all information successfully
     Given store manager is logged in
     When store manager navigates to Products section
@@ -26,6 +25,7 @@ Feature:
     And store manager get redirected to Products page
     And store manager should see the new product in the products list with name "Sample Book"
     And assert the new product via API with name "Sample Book" and sku "00001"
+    And delete product via api by using SKU to find its id "00001"
 
   @Smoke @PositiveAddProduct
   Scenario: Store Manager adds a new product with only required information successfully
@@ -41,6 +41,7 @@ Feature:
     And store manager get redirected to Products page
     And store manager should see the new product in the products list with name "Sample Book"
     And assert the new product via API with name "Sample Book" and sku "00002"
+    And delete product via api by using SKU to find its id "00002"
 
   @Smoke @NegativeAddProduct @MissingData
   Scenario Outline: Store Manager fails to add a new product due to missing information
@@ -75,7 +76,6 @@ Feature:
     Then store manager should see error message for taken sku "The sku has already been taken."
     And assert the the product wasn't added via API with name "Sample Book" and sku "3945165"
 
-    #ADDED ZeroNumbers test cases
   @Smoke @NegativeAddProduct @NegativeNumbers @ZeroNumbers @KnownIssue
   Scenario Outline: Store Manager fails to add a new product due to negative numbers input
     Given store manager is logged in
@@ -89,6 +89,7 @@ Feature:
     And store manager clicks on Submit button
     Then store manager should see error message for negative number "<Error field>"
     And assert the product wasn't added via API with sku "SKU" and name "Sample Book"
+    And delete product via api by using SKU to find its id "<sku>"
     Examples:
       | Price |  | Stock | Discount | sku   | Error field     |  |
       | -10   |  | 10    | 10       | 00006 | price           |  |
@@ -102,7 +103,7 @@ Feature:
       | 0     |  | 0     | 10       | 00014 | price, stock    |  |
 
   @Smoke @NegativeAddProduct @InvalidImageFormat
-  Scenario: Store Manager adds a new product with all information successfully
+  Scenario: Store Manager fails to add a new product duo to invalid image format
     Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
