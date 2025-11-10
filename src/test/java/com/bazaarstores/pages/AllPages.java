@@ -7,6 +7,8 @@ import com.bazaarstores.pages.admin_pages.AddUserPage;
 import com.bazaarstores.pages.admin_pages.AdminUsersPage;
 
 
+import com.bazaarstores.pages.customer_pages.CustomerCart;
+import com.bazaarstores.pages.customer_pages.CustomerCartConfirmation;
 import com.bazaarstores.pages.customer_pages.CustomerFavorite;
 import com.bazaarstores.pages.login_pages.LoginPage;
 import com.bazaarstores.pages.store_manager_pages.AddProductPage;
@@ -32,8 +34,9 @@ public class AllPages {
     private AddProductPage addProductsPage;
 
     private CustomerMainPage customerMainPage;
-    private CustomerFavorite customerFavorite; // حقل للكلاس الجديد
-
+    private CustomerFavorite customerFavorite;
+    private CustomerCart customerCart;
+    private CustomerCartConfirmation customerCartConfirmation;
 
 
     public LoginPage getLoginPage() {
@@ -122,4 +125,21 @@ public class AllPages {
         }
         return customerFavorite;
     }
+
+
+    // CustomerCart
+    public CustomerCart getCustomerCart() {
+        if (customerCart == null) {
+            customerCart = new CustomerCart(); // هنا ننشئ Cart مرة واحدة
+        }
+        return customerCart;
+    }
+
+    public CustomerCartConfirmation getCustomerCartConfirmation() {
+        if (customerCartConfirmation == null) {
+            customerCartConfirmation = new CustomerCartConfirmation(); // إنشاء مرة واحدة
+        }
+        return customerCartConfirmation;
+    }
+
 }
