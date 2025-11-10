@@ -15,6 +15,7 @@ Feature: Edit user's data
     And update the name
     And clicks on Submit button to confirm update
     Then a success message should appear to confirm update
+    And assert the name update via API
 
   @US16TC02 @Positive
   Scenario: Admin can update user's Role successfully
@@ -24,6 +25,7 @@ Feature: Edit user's data
     And update the role
     And clicks on Submit button to confirm update
     Then a success message should appear to confirm update
+    And assert the role update via API
 
   @US16TC03 @Positive
   Scenario: Admin can update user's Email successfully

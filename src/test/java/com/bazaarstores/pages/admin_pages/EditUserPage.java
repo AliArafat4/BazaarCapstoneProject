@@ -4,6 +4,7 @@ import com.bazaarstores.pages.BasePage;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -21,23 +22,28 @@ public class EditUserPage extends BasePage {
 
     public static String newName = Faker.instance().name().fullName();
     public static String enteredEmail = Faker.instance().internet().emailAddress();
+    public static String newRole;
 
     public void editName() {
-        //findElement(email).clear();
-
+        findElement(name).clear();
         findElement(name).sendKeys(newName);
     }
 
     public void editRole() {
-        String role = findElement(this.role).getText().trim();
+        WebElement roleDropdown = findElement(this.role);
+        Select select = new Select(roleDropdown);
 
-        if (role.equalsIgnoreCase("Customer")) {
-            selectByVisibleText(this.role, "Admin");
-        } else if (role.equalsIgnoreCase("Admin")) {
-            selectByVisibleText(this.role, "Customer");
+        String currentRole = select.getFirstSelectedOption().getText().trim();
+
+        if (currentRole.equalsIgnoreCase("Customer")) {
+            select.selectByVisibleText("Admin");  // match exactly what is in HTML
+            newRole = "Admin";
+        } else if (currentRole.equalsIgnoreCase("Admin")) {
+            select.selectByVisibleText("Customer");  // match exactly what is in HTML
+            newRole = "Customer";
         } else {
-            // fallback to Customer if role is something else or unexpected
-            selectByVisibleText(this.role, "Customer");
+            select.selectByVisibleText("Customer");
+            newRole = "Customer";
         }
 
     }

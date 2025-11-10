@@ -184,4 +184,23 @@ public class ApiSteps {
 
     }
 
+    @And("assert the name update via API")
+    public void assertTheNameUpdateViaAPI() {
+        Response response = given(spec()).get("/users");
+
+        JsonPath jsonPath = response.jsonPath();
+        String actualName = jsonPath.getString("find { it.email == '" + EditUserSteps.usersEmail + "' }.name");
+
+        assertEquals("User name was not updated correctly.", EditUserPage.newName, actualName);
+    }
+
+    @And("assert the role update via API")
+    public void assertTheRoleUpdateViaAPI() {
+        Response response = given(spec()).get("/users");
+
+        JsonPath jsonPath = response.jsonPath();
+        String actualRole = jsonPath.getString("find { it.email == '" + EditUserSteps.usersEmail + "' }.role");
+
+        assertEquals("User role was not updated correctly.", EditUserPage.newRole.toLowerCase(), actualRole.toLowerCase());
+    }
 }
