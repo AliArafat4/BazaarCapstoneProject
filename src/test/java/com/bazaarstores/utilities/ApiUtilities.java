@@ -49,4 +49,22 @@ public class ApiUtilities {
         return response.jsonPath().getString("authorisation.token");
     }
 
+    public static RequestSpecification customerSpec(){
+        return new RequestSpecBuilder()
+                .setBaseUri(ConfigReader.getApiBaseUrl())
+                .setContentType(ContentType.JSON)
+                .addHeader("Accept","application/json")
+                .addHeader("Authorization","Bearer " + getCustomerToken())
+                .build();
+    }
+
+    public static RequestSpecification managerSpec(){
+        return new RequestSpecBuilder()
+                .setBaseUri(ConfigReader.getApiBaseUrl())
+                .setContentType(ContentType.JSON)
+                .addHeader("Accept","application/json")
+                .addHeader("Authorization","Bearer " + getStoreMangerToken())
+                .build();
+    }
+
 }
