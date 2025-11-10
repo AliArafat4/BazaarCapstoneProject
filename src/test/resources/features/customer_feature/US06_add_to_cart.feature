@@ -1,4 +1,4 @@
-@Customer @AddToCart
+@Customer @AddToCart @Regression
     Feature: Add Products To Cart As a Customer
 
       Background:
