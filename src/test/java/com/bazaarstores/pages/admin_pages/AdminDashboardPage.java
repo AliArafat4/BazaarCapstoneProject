@@ -24,6 +24,7 @@ public class AdminDashboardPage extends BasePage {
     private final By cancelDelete = By.xpath("//button[text()='Cancel']");
     private String storeLocator ="//table//tbody//tr[td[contains(normalize-space(.),'%s')]]";
     private String deleteStoreByName ="//td[text()='%s']/following-sibling::*[3]/button[contains(@onclick,\"confirmDelete\")]";
+    private String updateStoreByName ="//td[text()='%s']/following-sibling::*[3]/button/a";
 
 
     private final String[] cloumns={"Name","Description","Location", "Admin Name",  "Actions"};
@@ -38,8 +39,8 @@ public class AdminDashboardPage extends BasePage {
         click(addStoreBtn);
         return new AddEditStorePage();
     }
-    public AddEditStorePage clickEditStore() {
-        click(editStoreBtn);
+    public AddEditStorePage clickEditStore(String name) {
+        clickWithJS(By.xpath(String.format(updateStoreByName,name)));
         return new AddEditStorePage();
     }
     public AdminDashboardPage clickDeleteStore(String name) {

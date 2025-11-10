@@ -17,7 +17,7 @@ public class deleteStoreSteps {
 
 
     AllPages allPages=new AllPages();
-    static String storeName;
+    public static String storeName;
 
 
 
