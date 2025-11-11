@@ -8,6 +8,7 @@
       And user should be logged in successfully
 
   @US04TC01 @Smoke
+
   Scenario: Customer Can See Products
     When customer can see products
 
