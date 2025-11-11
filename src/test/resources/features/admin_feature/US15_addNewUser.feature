@@ -7,7 +7,7 @@ Feature: add new user
     And user clicks login button
     Then admin should be logged in successfully
 
-  @US15TC01 @Positive
+  @US15TC01 @Positive @Smoke
   Scenario: Successfully add a new user
     When admin navigates to the Users page
     And clicks on Add Users button
@@ -66,14 +66,14 @@ Feature: add new user
 
 
 
-  @US15TC11 @Positive
+  @US15TC11 @Positive @Smoke
     Scenario: Verify ADD USERS button is visible and clickable
       When admin navigates to the Users page
       Then admin should be able to see the ADD USERS button
       When clicks on Add Users button
       Then admin should navigates to the Add Users page
 
-  @US15TC14 @Positive
+  @US15TC14 @Positive @Smoke
   Scenario: Verify Submit button in Add Users page is visible and clickable
     When admin navigates to the Users page
     Then admin should be able to see the Submit button
@@ -86,7 +86,7 @@ Feature: add new user
 
 
 
-  @US15TC10 @Positive
+  @US15TC10 @Positive @Smoke
   Scenario: Added user is showing in the users list successfully
     When admin navigates to the Users page
     And clicks on Add Users button
