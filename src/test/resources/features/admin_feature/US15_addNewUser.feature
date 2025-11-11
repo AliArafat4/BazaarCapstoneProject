@@ -1,4 +1,4 @@
-@AddUser @TestZahra
+@AddUser @Regression
 Feature: add new user
 
   Background:
