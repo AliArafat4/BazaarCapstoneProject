@@ -1,7 +1,6 @@
 package com.bazaarstores.stepDefinitions.admin_steps;
 import com.bazaarstores.pages.AllPages;
 import com.github.javafaker.Faker;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,7 +12,7 @@ import java.util.Map;
 import static com.bazaarstores.utilities.ApiUtilities.spec;
 import static org.junit.Assert.fail;
 
-public class deleteStoreSteps {
+public class DeleteStoreSteps {
 
 
     AllPages allPages=new AllPages();
@@ -93,7 +92,7 @@ public class deleteStoreSteps {
 
     @And("the admin adds a new store with fake data")
     public void theAdminAddsANewStoreWithFakeData() {
-        deleteStoreSteps.storeName =new Faker().name().title();
+        DeleteStoreSteps.storeName =new Faker().name().title();
         String location="Jeddah";
         String adminName="Store Manager";
         String description="store description";

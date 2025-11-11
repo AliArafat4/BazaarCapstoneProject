@@ -4,7 +4,7 @@ import com.bazaarstores.pages.BasePage;
 import org.openqa.selenium.By;
 
 import static com.bazaarstores.utilities.Driver.getDriver;
-import static com.bazaarstores.stepDefinitions.admin_steps.editStoreSteps.adminId;
+import static com.bazaarstores.stepDefinitions.admin_steps.EditStoreSteps.adminId;
 import static org.junit.Assert.fail;
 
 public class AddEditStorePage extends BasePage {

@@ -1,6 +1,5 @@
 package com.bazaarstores.stepDefinitions.admin_steps;
 import com.bazaarstores.pages.AllPages;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,10 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 import static com.bazaarstores.utilities.ApiUtilities.*;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
-public class viewAllStoresSteps {
+public class ViewAllStoresSteps {
 
     AllPages allPages= new AllPages();
 

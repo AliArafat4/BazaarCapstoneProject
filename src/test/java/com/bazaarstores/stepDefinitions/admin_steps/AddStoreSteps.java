@@ -13,7 +13,7 @@ import java.util.Map;
 import static com.bazaarstores.utilities.ApiUtilities.spec;
 import static org.junit.Assert.*;
 
-public class addStoreSteps {
+public class AddStoreSteps {
 
     AllPages allPages=new AllPages();
 
