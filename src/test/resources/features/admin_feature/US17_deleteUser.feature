@@ -1,4 +1,4 @@
-@DeleteUser @TestZahra
+@DeleteUser @Regression
 Feature: delete a from the system
 
   Background:
