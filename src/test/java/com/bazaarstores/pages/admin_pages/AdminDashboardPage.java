@@ -105,9 +105,14 @@ public class AdminDashboardPage extends BasePage {
         click(cancelDelete);
     }
 
-    public void clickConfirmDelete() { click(confirmDelete); }
+    public void clickConfirmDelete() {
+        click(confirmDelete);
 
+    }
+
+    //Youmna's addition
     public ViewUsersPage clickUsersMenu() {
+
         Driver.getDriver().findElement(usersButton).click();
         return new ViewUsersPage();
     }

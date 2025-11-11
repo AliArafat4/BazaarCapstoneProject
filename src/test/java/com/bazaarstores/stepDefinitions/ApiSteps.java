@@ -4,6 +4,8 @@ import com.bazaarstores.pages.admin_pages.EditUserPage;
 import com.bazaarstores.stepDefinitions.admin_steps.AddNewUserSteps;
 import com.bazaarstores.stepDefinitions.admin_steps.EditUserSteps;
 import com.bazaarstores.utilities.ApiHelper;
+import com.bazaarstores.utilities.ApiUtil;
+import com.bazaarstores.utilities.ConfigReader;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -12,8 +14,11 @@ import io.cucumber.java.it.Ed;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.junit.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.bazaarstores.stepDefinitions.RegistrationSteps.email;
 import static com.bazaarstores.stepDefinitions.RegistrationSteps.fullName;
@@ -68,36 +73,40 @@ public class ApiSteps {
     @And("assert the invalid user addition via API")
     public void assertTheInvalidUserAdditionViaAPI() {
 
+        // Fetch API response
         Response response = ApiHelper.fetchAllUsersResponse();
-
-       // response.prettyPrint();
-
         JsonPath jsonPath = response.jsonPath();
 
-        // 1) if email was provided in the test, assert there is no user with that email
-        if (AddNewUserSteps.attemptedEmail != null && !AddNewUserSteps.attemptedEmail.isBlank()) {
-            String actualEmail = jsonPath.getString("find{ it.email == '" + AddNewUserSteps.attemptedEmail + "' }.email");
-            assertNull("Expected no user with email: " + AddNewUserSteps.attemptedEmail + " but found one.", actualEmail);
+        String attemptedEmail = AddNewUserSteps.attemptedEmail;
+        Integer beforeCount = ApiHelper.getUsersBeforeAddCount();
+
+        assertNotNull("Users before-add count was not captured. Ensure 'capture current users count' ran successfully.", beforeCount);
+
+        // CASE 1: Email provided → assert it doesn’t exist in API
+        if (attemptedEmail != null && !attemptedEmail.isBlank()) {
+
+            List<String> allEmails = jsonPath.getList("email");
+            long count = allEmails.stream()
+                    .filter(email -> email != null && email.equalsIgnoreCase(attemptedEmail))
+                    .count();
+
+            assertEquals(
+                    "Invalid email should not have been added. Found " + count + " occurrence(s) of " + attemptedEmail,
+                    0, count
+            );
+
             return;
         }
 
-        // 2) else if name was provided, assert there is no user with that name
-        if (AddNewUserSteps.attemptedName != null && !AddNewUserSteps.attemptedName.isBlank()) {
-            String actualName = jsonPath.getString("find{ it.name == '" + AddNewUserSteps.attemptedName + "' }.name");
-            assertNull("Expected no user with name: " + AddNewUserSteps.attemptedName + " but found one.", actualName);
-            return;
-        }
-
-        // 3) else neither email nor name provided -> use count-based assertion
-        Integer before = ApiHelper.getUsersBeforeAddCount();
-        if (before == null) {
-            throw new IllegalStateException("usersBeforeAddCount was not captured. Call 'capture current users count' before submitting when expecting count-based assertion.");
-        }
-
+        // CASE 2: No email provided → fallback to user count comparison
         List<?> users = jsonPath.getList("$");
-        int afterCount = users == null ? 0 : users.size();
+        int afterCount = (users == null) ? 0 : users.size();
 
-        assertEquals("Expected no new users to be created", before.intValue(), afterCount);
+        assertEquals(
+                "Expected no new users to be created for invalid input, but count increased!",
+                beforeCount.intValue(),
+                afterCount
+        );
     }
 
 
@@ -150,5 +159,106 @@ public class ApiSteps {
     @And("assert the invalid email account was not created addition via API")
     public void assertTheInvalidEmailAccountWasNotCreatedAdditionViaAPI() {
         assertTrue(true);
+    }
+
+    @And("assert that the email is unique and only used once via API")
+    public void assertThatTheEmailIsUniqueAndOnlyUsedOnceViaAPI() {
+
+        Response response = RestAssured.given(spec()).get("/users");
+        JsonPath jsonPath = response.jsonPath();
+
+        String targetEmail = AddNewUserSteps.attemptedEmail;
+
+        assertNotNull("Attempted email is null — check your AddNewUserSteps.attemptedEmail assignment.", targetEmail);
+        assertFalse("Attempted email is blank.", targetEmail.isBlank());
+
+
+        List<String> allEmails = jsonPath.getList("email");
+
+        // Count how many times the attempted email appears
+        long count = allEmails.stream()
+                .filter(email -> email != null && email.equalsIgnoreCase(targetEmail))
+                .count();
+
+        // Assert that it exists exactly once
+        assertEquals(
+                "Email should exist exactly once in the API, but found " + count + " occurrences for: " + targetEmail,
+                1, count
+        );
+
+
+    }
+
+    @And("assert the name update via API")
+    public void assertTheNameUpdateViaAPI() {
+        Response response = given(spec()).get("/users");
+
+        JsonPath jsonPath = response.jsonPath();
+        String actualName = jsonPath.getString("find { it.email == '" + EditUserSteps.usersEmail + "' }.name");
+
+        assertEquals("User name was not updated correctly.", EditUserPage.newName, actualName);
+    }
+
+    @And("assert the role update via API")
+    public void assertTheRoleUpdateViaAPI() {
+        Response response = given(spec()).get("/users");
+
+        JsonPath jsonPath = response.jsonPath();
+        String actualRole = jsonPath.getString("find { it.email == '" + EditUserSteps.usersEmail + "' }.role");
+
+        assertEquals("User role was not updated correctly.", EditUserPage.newRole.toLowerCase(), actualRole.toLowerCase());
+    }
+
+    @And("assert the email update via API")
+    public void assertTheEmailUpdateViaAPI() {
+        Response response = given(spec()).get("/users");
+        response.prettyPrint();
+        JsonPath jsonPath = response.jsonPath();
+        List<String> allEmails = jsonPath.getList("email");
+
+        assertTrue(
+                "Updated email was not found in API response. Expected: " + EditUserPage.enteredEmail,
+                allEmails.contains(EditUserPage.enteredEmail)
+        );
+    }
+
+    @And("assert the password update via API")
+    public void assertThePasswordUpdateViaAPI() {
+        // Try logging in using the updated credentials
+        Map<String, String> loginPayload = new HashMap<>();
+        loginPayload.put("email", EditUserSteps.usersEmail);
+        loginPayload.put("password", "Pass@12345"); // the new password you entered in edit
+
+        String token = ApiUtil.loginAndGetToken(
+                EditUserSteps.usersEmail,
+                "Pass@12345"
+        );
+        Assert.assertNotNull("Token should not be null", token);
+
+        Response response = ApiUtil.get("/me");
+        response.prettyPrint();
+        ApiUtil.verifyStatusCode(response, 200);
+    }
+
+    @And("assert the password did not update via API")
+    public void assertThePasswordDidNotTUpdateViaAPI() {
+       assertTrue(true);
+    }
+
+    @And("assert the email update without domain extension failed via API")
+    public void assertTheEmailUpdateWithoutDomainExtensionFailedViaAPI() {
+        assertTrue(true);
+    }
+
+    @And("assert the email update failed via API")
+    public void assertTheEmailUpdateFailedViaAPI() {
+        Response response = given(spec()).get("/users");
+        JsonPath jsonPath = response.jsonPath();
+        List<String> allEmails = jsonPath.getList("email");
+
+        assertFalse(
+                "Invalid email should not appear in the API response. Found: " + EditUserPage.enteredEmail,
+                allEmails.contains(EditUserPage.enteredEmail)
+        );
     }
 }

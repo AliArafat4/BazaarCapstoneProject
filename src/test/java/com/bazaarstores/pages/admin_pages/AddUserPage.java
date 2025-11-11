@@ -141,6 +141,9 @@ public class AddUserPage extends BasePage {
         return isDisplayed(submitButton);
     }
 
+    public String getValidationMessage(){
+        return getAttribute(email, "validationMessage");
+    }
 
 
 }
