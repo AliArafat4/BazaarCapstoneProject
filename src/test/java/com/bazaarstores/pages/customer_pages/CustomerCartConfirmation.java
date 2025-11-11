@@ -23,19 +23,40 @@ public class CustomerCartConfirmation {
     private By okButton = By.xpath("//button[contains(@class,'swal2-confirm')]");
 
     // Actions
+//    public void hoverOverCartIcon() {
+//        org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
+//        actions.moveToElement(driver.findElement(cartIcon)).perform();
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(viewCartButton));
+//    }
+
+
     public void hoverOverCartIcon() {
         org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
-        actions.moveToElement(driver.findElement(cartIcon)).perform();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(viewCartButton));
+        WebElement cart = driver.findElement(cartIcon);
+        actions.moveToElement(cart).perform();
+        // JavaScript click ممكن تحط هنا بدل الانتظار التقليدي
+        wait.until(ExpectedConditions.presenceOfElementLocated(viewCartButton));
     }
+
+
+//    public void clickViewCartButton() {
+//        wait.until(ExpectedConditions.elementToBeClickable(viewCartButton)).click();
+//    }
 
     public void clickViewCartButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(viewCartButton)).click();
+        WebElement viewCart = wait.until(ExpectedConditions.presenceOfElementLocated(viewCartButton));
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", viewCart);
     }
 
+//    public void clickConfirmCartButton() {
+//        wait.until(ExpectedConditions.elementToBeClickable(confirmCartButton)).click();
+//    }
+
     public void clickConfirmCartButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(confirmCartButton)).click();
+        WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(confirmCartButton));
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
     }
+
 
     public boolean isViewCartButtonVisible() {
         try {
@@ -64,7 +85,13 @@ public class CustomerCartConfirmation {
         }
     }
 
-    public void clickOkButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(okButton)).click();
-    }
+//    public void clickOkButton() {
+//        wait.until(ExpectedConditions.elementToBeClickable(okButton)).click();
+//    }
+
+public void clickOkButton() {
+    WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(okButton));
+    ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+}
+
 }
