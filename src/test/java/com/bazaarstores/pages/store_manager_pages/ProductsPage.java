@@ -1,7 +1,9 @@
 package com.bazaarstores.pages.store_manager_pages;
 
 import com.bazaarstores.pages.BasePage;
+import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 
 import static com.bazaarstores.utilities.Driver.getDriver;
 
@@ -20,7 +22,8 @@ public class ProductsPage extends BasePage {
 
 
     public ProductsPage clickAddProductButton() {
-        click(addProductButton);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(addProductButton));
+//        click(addProductButton);
         return this;
     }
 
@@ -31,7 +34,9 @@ public class ProductsPage extends BasePage {
 
     public ProductsPage clickEditProductButton(String productName) {
         By editButton = By.xpath("//tbody/tr[td[normalize-space(.)='" + productName + "']]/td[6]/button[1]");
-        scrollToElement(editButton);
+
+//        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(editButton));
+                scrollToElement(editButton);
         waitUntilElementIsFullyInView(editButton, 5);
         click(editButton);
         return this;
@@ -55,9 +60,11 @@ public class ProductsPage extends BasePage {
 
     public ProductsPage clickDeleteProductButton(String productName) {
         By deleteButton = By.xpath("//tbody/tr[td[normalize-space(.)='" + productName + "']]/td[6]/button[2]");
-        scrollToElement(deleteButton);
-        waitUntilElementIsFullyInView(deleteButton, 5);
-        click(deleteButton);
+//        scrollToElement(deleteButton);
+//        waitUntilElementIsFullyInView(deleteButton, 5);
+//        click(deleteButton);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(deleteButton));
+
 
         return this;
     }
@@ -68,11 +75,15 @@ public class ProductsPage extends BasePage {
 
     public ProductsPage clickConfirmDeleteButton() {
         click(confirmDeleteButton);
+//        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(confirmDeleteButton));
+
         return this;
     }
 
     public ProductsPage clickCancelDeleteButton() {
         click(cancelDeleteButton);
+//        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(cancelDeleteButton));
+
         return this;
     }
 

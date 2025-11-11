@@ -1,7 +1,9 @@
 package com.bazaarstores.pages.store_manager_pages;
 
 import com.bazaarstores.pages.BasePage;
+import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 
 import java.io.File;
 
@@ -84,7 +86,9 @@ public class AddProductPage extends BasePage {
     }
 
     public AddProductPage clickSubmitButton() {
-        click(submitButton);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(submitButton));
+
+//        click(submitButton);
         return this;
     }
 
