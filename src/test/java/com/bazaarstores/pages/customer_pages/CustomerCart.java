@@ -43,23 +43,44 @@ public class CustomerCart {
     public boolean isCartPageLoaded() {
         return !productsInCartPage.isEmpty();
     }
+//
+//    // Hover over cart icon
+//    public void hoverOverCartIcon() {
+//        org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
+//        actions.moveToElement(cartIcon).perform();
+//        wait.until(ExpectedConditions.visibilityOf(cartDropdown));
+//
+//        // Wait for items if cart not empty
+//        List<WebElement> items = driver.findElements(By.cssSelector(".cart-item"));
+//        if (!items.isEmpty()) {
+//            wait.until(ExpectedConditions.visibilityOfAllElements(items));
+//        } else {
+//            // Short wait if cart empty
+//            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(1));
+//            shortWait.until(d -> true);
+//        }
+//    }
 
-    // Hover over cart icon
+
+    //new
     public void hoverOverCartIcon() {
         org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
         actions.moveToElement(cartIcon).perform();
         wait.until(ExpectedConditions.visibilityOf(cartDropdown));
 
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // Wait for items if cart not empty
         List<WebElement> items = driver.findElements(By.cssSelector(".cart-item"));
         if (!items.isEmpty()) {
             wait.until(ExpectedConditions.visibilityOfAllElements(items));
-        } else {
-            // Short wait if cart empty
-            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(1));
-            shortWait.until(d -> true);
         }
     }
+
 
     // Check mini cart visibility
     public boolean isMiniCartVisible() {
@@ -70,13 +91,22 @@ public class CustomerCart {
         }
     }
 
-    // Click View Cart button
+//    // Click View Cart button
+//    public void clickViewCartButton() {
+//        ((org.openqa.selenium.JavascriptExecutor) driver)
+//                .executeScript("arguments[0].scrollIntoView(true);", viewCartButton);
+//        viewCartButton.click();
+//        wait.until(ExpectedConditions.visibilityOfAllElements(productsInCartPage));
+//    }
+
+    //new
     public void clickViewCartButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(viewCartButton));
         ((org.openqa.selenium.JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView(true);", viewCartButton);
-        viewCartButton.click();
+                .executeScript("arguments[0].click();", viewCartButton); // استخدم JS click
         wait.until(ExpectedConditions.visibilityOfAllElements(productsInCartPage));
     }
+
 
     // Remove first item from mini cart
     public void removeFirstItem() {

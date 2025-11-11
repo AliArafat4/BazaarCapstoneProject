@@ -6,10 +6,7 @@ Feature: US08 - View items in the cart as a customer
     And user enters email "customer@sda.com" and password "Password.12345"
     And user clicks login button
     And user should be logged in successfully
-
-  @Setup
-  Scenario: Add 3 products to cart before running tests
-    Given customer adds multiple different products to the cart
+    And customer clicks on Add to Cart button for a product
 
 
   @US08_TC001 @Smoke

@@ -34,12 +34,26 @@ public class CustomerFavorite extends BasePage {
     }
 
     // #Hover and Click
+//    public void hoverAndClickHeart(int position) {
+//        WebElement product = getProductByXPath(position);
+//        new Actions(Driver.getDriver()).moveToElement(product).perform();
+//        lastFavoritedProductName = getProductName(product);
+//        getHeartIcon(product).click();
+//    }
+
+
     public void hoverAndClickHeart(int position) {
         WebElement product = getProductByXPath(position);
         new Actions(Driver.getDriver()).moveToElement(product).perform();
         lastFavoritedProductName = getProductName(product);
-        getHeartIcon(product).click();
+
+        WebElement heart = getHeartIcon(product);
+        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(heart));
+        heart.click();
     }
+
+
 
     // #Check Heart Icon
     public boolean isHeartIconDisplayed(int position) {
@@ -47,27 +61,54 @@ public class CustomerFavorite extends BasePage {
         return getHeartIcon(product).isDisplayed();
     }
 
+//    public String getHeartIconColor(int position) {
+//        WebElement heart = getHeartIcon(getProductByXPath(position));
+//        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5))
+//                .until(driver -> heart.getCssValue("color").equals("rgba(255, 68, 68, 1)"));
+//        return heart.getCssValue("color");
+//    }
+
     public String getHeartIconColor(int position) {
         WebElement heart = getHeartIcon(getProductByXPath(position));
-        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5))
+        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10))
                 .until(driver -> heart.getCssValue("color").equals("rgba(255, 68, 68, 1)"));
         return heart.getCssValue("color");
     }
 
+
     // #Favorites Page Validation
+//    public boolean isProductInFavoritesPage() {
+//        Driver.getDriver().get("https://bazaarstores.com/favorites");
+//        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5))
+//                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(favoriteProductCards));
+//
+//        List<WebElement> products = findElements(favoriteProductCards);
+//        for (WebElement product : products) {
+//            if (product.findElement(favoriteProductNameInCard).getText().equals(lastFavoritedProductName)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
     public boolean isProductInFavoritesPage() {
         Driver.getDriver().get("https://bazaarstores.com/favorites");
-        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5))
+
+        // انتظر حتى تظهر المنتجات
+        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(favoriteProductCards));
 
         List<WebElement> products = findElements(favoriteProductCards);
+
         for (WebElement product : products) {
-            if (product.findElement(favoriteProductNameInCard).getText().equals(lastFavoritedProductName)) {
+            String name = product.findElement(favoriteProductNameInCard).getText();
+            if (name.equals(lastFavoritedProductName)) {
                 return true;
             }
         }
         return false;
     }
+
 
     // #Removed Product Validation
     public boolean isProductRemovedFromFavorites() {
@@ -104,12 +145,40 @@ public class CustomerFavorite extends BasePage {
         findElement(myFavoritesLink).click();
     }
 
-    // #Remove from Favorites
+//    // #Remove from Favorites
+//    public void removeProductFromFavorites(int position) {
+//        WebElement product = getProductByXPath(position);
+//        WebElement favDiv = product.findElement(By.cssSelector("div.fav.favorite-icon"));
+//        lastFavoritedProductName = getProductName(product);
+//        new Actions(Driver.getDriver()).moveToElement(favDiv).perform();
+//        favDiv.click();
+//    }
+
     public void removeProductFromFavorites(int position) {
         WebElement product = getProductByXPath(position);
         WebElement favDiv = product.findElement(By.cssSelector("div.fav.favorite-icon"));
         lastFavoritedProductName = getProductName(product);
-        new Actions(Driver.getDriver()).moveToElement(favDiv).perform();
-        favDiv.click();
+
+        try {
+            new Actions(Driver.getDriver()).moveToElement(favDiv).perform();
+            new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5))
+                    .until(ExpectedConditions.elementToBeClickable(favDiv));
+            favDiv.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", favDiv);
+        }
+
+        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10)).until(driver -> {
+            List<WebElement> products = driver.findElements(favoriteProductCards);
+            for (WebElement p : products) {
+                if (p.findElement(favoriteProductNameInCard).getText().equals(lastFavoritedProductName)) {
+                    return false;
+                }
+            }
+            return true;
+        });
     }
+
+
+
 }

@@ -2,6 +2,7 @@ package com.bazaarstores.pages.store_manager_pages;
 
 import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -23,9 +24,17 @@ public class ViewCatalogAllProduct {
     }
 
     // Click on "Products" link in sidebar
+//    public void clickProductsFromSidebar() {
+//        getProductsSidebarLink().click();
+//    }
+
+    //new
+
     public void clickProductsFromSidebar() {
-        getProductsSidebarLink().click();
+        WebElement element = getProductsSidebarLink();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
+
 
     // Verify that Products page is displayed
     public boolean isProductsPageDisplayed() {

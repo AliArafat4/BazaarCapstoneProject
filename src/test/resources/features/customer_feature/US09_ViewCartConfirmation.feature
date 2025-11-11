@@ -7,7 +7,7 @@ Feature: US09 - Confirm cart contents as a customer
     And user should be logged in successfully
 
   @Setup
-  Scenario: Add 3 products to cart before running tests
+  Scenario: Add 1 products to cart before running tests
     Given customer clicks on Add to Cart button for a product
 
 

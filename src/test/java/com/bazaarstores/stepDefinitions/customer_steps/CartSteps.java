@@ -82,12 +82,4 @@ public class CartSteps {
 
         System.out.println("Subtotal updated successfully. New total: $" + newSubtotal);
     }
-
-
-
-
-
-
-
-
 }
