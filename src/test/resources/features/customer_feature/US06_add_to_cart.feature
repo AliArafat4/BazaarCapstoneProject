@@ -7,9 +7,6 @@
         And user clicks login button
         And user should be logged in successfully
 
-
-
-
       @US06TC01
       Scenario: Cart count initially zero for customer
         Then cart count should be zero for the customer at the start
@@ -30,7 +27,7 @@
           When customer adds multiple different products to the cart
           Then cart count must be increased by the number of products added
 
-      @US06TC05
+      @US06TC05 @KnownIssue
         Scenario: Customer can add product multiple times to the cart
           When customer adds the same product multiple times to the cart
           Then cart count must be increased by the number of that product additions

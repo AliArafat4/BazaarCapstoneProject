@@ -8,7 +8,6 @@
       And user should be logged in successfully
 
   @US04TC01 @Smoke
-
   Scenario: Customer Can See Products
     When customer can see products
 
@@ -25,6 +24,10 @@
   @US04TC04
   Scenario: Customer Can See Products Prices
     When customer can see products Prices
+
+    @US04TC05 @KnownIssue
+    Scenario: Customer Can See Products Descriptions
+      When customer can see products Descriptions
 
   @US04TC06
   Scenario: Customer Can See Products Images
