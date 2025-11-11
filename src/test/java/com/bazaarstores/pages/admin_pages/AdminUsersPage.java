@@ -1,11 +1,19 @@
 package com.bazaarstores.pages.admin_pages;
 
 import com.bazaarstores.pages.BasePage;
+import com.bazaarstores.stepDefinitions.admin_steps.EditUserSteps;
 import com.bazaarstores.utilities.ConfigReader;
 import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
 
 public class AdminUsersPage extends BasePage {
 
@@ -63,7 +71,35 @@ public class AdminUsersPage extends BasePage {
 
     public void clickEditButton(){
        // click(editButton);
-        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(editButton));
+       // ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(editButton));
+
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(15));
+
+        // 1) wait for the row that contains the email
+        By rowBy = By.xpath("//td[normalize-space()='" + EditUserSteps.usersEmail + "']/parent::tr");
+        WebElement row = wait.until(ExpectedConditions.visibilityOfElementLocated(rowBy));
+
+        // 2) inside that row locate the anchor (not the <i>) — clicking anchor is more reliable
+        By editAnchorRelative = By.xpath(".//a[contains(@href,'/users/') and .//i[contains(@class,'bi-pencil-square')]]");
+
+        // 3) re-find the edit anchor from the fresh row and wait until clickable
+        WebElement editAnchor = wait.until(driver1 -> {
+            try {
+                WebElement e = row.findElement(editAnchorRelative);
+                return (e.isDisplayed() && e.isEnabled()) ? e : null;
+            } catch (StaleElementReferenceException | NoSuchElementException ex) {
+                return null; // keep waiting
+            }
+        });
+
+        // 4) click — with small try/catch to recover if stale happens at last moment
+        try {
+            editAnchor.click();
+        } catch (StaleElementReferenceException ex) {
+            WebElement freshRow = Driver.getDriver().findElement(rowBy);
+            freshRow.findElement(editAnchorRelative).click();
+        }
+
     }
 
     public boolean editUsersIsVisible() {
@@ -72,7 +108,13 @@ public class AdminUsersPage extends BasePage {
 
     public void clickDeleteButton(){
         //click(deleteButton);
-        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(deleteButton));
+        //((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(deleteButton));
+
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        WebElement deleteBtn = wait.until(ExpectedConditions.elementToBeClickable(deleteButton));
+
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", deleteBtn);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", deleteBtn);
     }
 
     public void clickConfirmDeleteButton(){

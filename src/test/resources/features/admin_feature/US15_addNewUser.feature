@@ -1,4 +1,4 @@
-@AddUser @Regression
+@AddUser @Regression @TestZahra
 Feature: add new user
 
   Background:
@@ -18,7 +18,7 @@ Feature: add new user
 
 
 
-  @Negative @testAdd
+  @Negative @testAdd @noCount
   Scenario Outline: Add user with invalid data
     When admin navigates to the Users page
     And clicks on Add Users button
@@ -44,7 +44,7 @@ Feature: add new user
 
 
 
-  @US15TC13 @Negative @testAdd @KnownIssue
+  @US15TC13 @Negative @testAdd @KnownIssue @noCount
   Scenario: Add user with invalid email without domain extension
     When admin navigates to the Users page
     And clicks on Add Users button
@@ -54,7 +54,7 @@ Feature: add new user
     Then an error message should appear to prevent user addition with invalid email format
     And assert the invalid email account was not created addition via API
 
-  @US15TC09 @Negative @testAdd
+  @US15TC09 @Negative @testAdd @noCount
   Scenario: Add user with used email
     When admin navigates to the Users page
     And clicks on Add Users button

@@ -1,4 +1,4 @@
-@DeleteUser @Regression
+@DeleteUser @Regression @TestZahra
 Feature: delete a from the system
 
   Background:
@@ -7,7 +7,7 @@ Feature: delete a from the system
     And user clicks login button
     Then admin should be logged in successfully
 
-  @US17TC01 @Positive @KnownIssue @Smoke
+  @US17TC01 @Positive @KnownIssue @Smoke @qq
   Scenario: Admin can delete a user successfully
     Given the intended user exists
     When admin locate the intended user by email

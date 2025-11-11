@@ -1,4 +1,4 @@
-@EditUser @Regression
+@EditUser @Regression @TestZahra
 Feature: Edit user's data
 
   Background:
@@ -27,7 +27,7 @@ Feature: Edit user's data
     Then a success message should appear to confirm update
     And assert the role update via API
 
-  @US16TC03 @Positive @Smoke
+  @US16TC03 @Positive @Smoke @qq
   Scenario: Admin can update user's Email successfully
     Given the intended user exists
     When admin locate the intended user by email
@@ -37,7 +37,7 @@ Feature: Edit user's data
     Then a success message should appear to confirm update
     And assert the email update via API
 
-  @InvalidEmailUpdate @Negative
+  @InvalidEmailUpdate @Negative @cc
   Scenario Outline: Update user's Email to invalid format
     Given the intended user exists
     When admin locate the intended user by email
