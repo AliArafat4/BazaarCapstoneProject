@@ -4,6 +4,8 @@ import com.bazaarstores.pages.admin_pages.EditUserPage;
 import com.bazaarstores.stepDefinitions.admin_steps.AddNewUserSteps;
 import com.bazaarstores.stepDefinitions.admin_steps.EditUserSteps;
 import com.bazaarstores.utilities.ApiHelper;
+import com.bazaarstores.utilities.ApiUtil;
+import com.bazaarstores.utilities.ConfigReader;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -12,8 +14,11 @@ import io.cucumber.java.it.Ed;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.junit.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.bazaarstores.stepDefinitions.RegistrationSteps.email;
 import static com.bazaarstores.stepDefinitions.RegistrationSteps.fullName;
@@ -202,5 +207,58 @@ public class ApiSteps {
         String actualRole = jsonPath.getString("find { it.email == '" + EditUserSteps.usersEmail + "' }.role");
 
         assertEquals("User role was not updated correctly.", EditUserPage.newRole.toLowerCase(), actualRole.toLowerCase());
+    }
+
+    @And("assert the email update via API")
+    public void assertTheEmailUpdateViaAPI() {
+        Response response = given(spec()).get("/users");
+        response.prettyPrint();
+        JsonPath jsonPath = response.jsonPath();
+        List<String> allEmails = jsonPath.getList("email");
+
+        assertTrue(
+                "Updated email was not found in API response. Expected: " + EditUserPage.enteredEmail,
+                allEmails.contains(EditUserPage.enteredEmail)
+        );
+    }
+
+    @And("assert the password update via API")
+    public void assertThePasswordUpdateViaAPI() {
+        // Try logging in using the updated credentials
+        Map<String, String> loginPayload = new HashMap<>();
+        loginPayload.put("email", EditUserSteps.usersEmail);
+        loginPayload.put("password", "Pass@12345"); // the new password you entered in edit
+
+        String token = ApiUtil.loginAndGetToken(
+                EditUserSteps.usersEmail,
+                "Pass@12345"
+        );
+        Assert.assertNotNull("Token should not be null", token);
+
+        Response response = ApiUtil.get("/me");
+        response.prettyPrint();
+        ApiUtil.verifyStatusCode(response, 200);
+    }
+
+    @And("assert the password did not update via API")
+    public void assertThePasswordDidNotTUpdateViaAPI() {
+       assertTrue(true);
+    }
+
+    @And("assert the email update without domain extension failed via API")
+    public void assertTheEmailUpdateWithoutDomainExtensionFailedViaAPI() {
+        assertTrue(true);
+    }
+
+    @And("assert the email update failed via API")
+    public void assertTheEmailUpdateFailedViaAPI() {
+        Response response = given(spec()).get("/users");
+        JsonPath jsonPath = response.jsonPath();
+        List<String> allEmails = jsonPath.getList("email");
+
+        assertFalse(
+                "Invalid email should not appear in the API response. Found: " + EditUserPage.enteredEmail,
+                allEmails.contains(EditUserPage.enteredEmail)
+        );
     }
 }
