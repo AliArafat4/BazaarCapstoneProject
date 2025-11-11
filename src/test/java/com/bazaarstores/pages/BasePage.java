@@ -1,5 +1,6 @@
 package com.bazaarstores.pages;
 
+import com.bazaarstores.pages.login_pages.LoginPage;
 import com.bazaarstores.utilities.ConfigReader;
 import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.*;
@@ -272,4 +273,33 @@ public abstract class BasePage {
         });
     }
 
+    public static class DashboardPage_LogoutTest extends BasePage {
+
+        private final By dashboard = By.xpath("//div[@class='products-grid']");
+        private final By profileIcon = By.cssSelector(".profile-icon");
+        private final By logoutButton = By.cssSelector(".logout");
+
+        public DashboardPage_LogoutTest() {
+            super();
+        }
+
+        public void clickProfileLink() {
+            click(profileIcon);
+        }
+
+        public LoginPage clickLogout() {
+            click(profileIcon); // open dropdown first
+            click(logoutButton); // click logout link
+            return new LoginPage();
+        }
+
+        public boolean isDashboardPageDisplayed() {
+            return isDisplayed(dashboard);
+        }
+
+        public boolean isProfileVisitChartDisplayed() {
+            By profileVisitChart = By.xpath("//div[@class='card-body']");
+            return isDisplayed(profileVisitChart);
+        }
+    }
 }

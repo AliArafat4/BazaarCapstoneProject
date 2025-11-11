@@ -63,7 +63,7 @@ jenkins.log
 #src/test/resources/credentials.properties
 
 # Keep this commented unless you want to ignore the main config
-configuration.properties
+#configuration.properties
 
 # Package Files
 *.zip
