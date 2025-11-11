@@ -1,4 +1,4 @@
-@Admin @AddStore
+@Admin @AddStore @Regression
 Feature: Add a new store as an Admin.
   1- Admin can add a new store with valid inputs.
   2- Missing fields show an error. (Name, Description, Location, Admins)
