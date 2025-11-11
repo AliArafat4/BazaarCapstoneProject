@@ -10,7 +10,7 @@
 
 
 
-    @US14TC01
+    @US14TC01 @Smoke
     Scenario: Admin can access 'users' from menu
       When admin clicks users menu
       Then admin should be redirected to Users page successfully
