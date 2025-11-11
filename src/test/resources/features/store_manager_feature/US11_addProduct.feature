@@ -6,7 +6,7 @@ Feature: Store Manager Add Product Feature
     When user enters email "storemanager@sda.com" and password "Password.12345"
     And user clicks login button
 
-  @Smoke @PositiveAddProduct @sss
+  @Smoke @PositiveAddProduct
   Scenario: Store Manager adds a new product with all information successfully
     Given store manager is logged in
     When store manager navigates to Products section
@@ -27,7 +27,7 @@ Feature: Store Manager Add Product Feature
     And assert the new product via API with name "Sample Book" and sku "00001"
     And delete product via api by using SKU to find its id "00001"
 
-  @Smoke @PositiveAddProduct
+  @PositiveAddProduct
   Scenario: Store Manager adds a new product with only required information successfully
     Given store manager is logged in
     When store manager navigates to Products section
@@ -76,7 +76,7 @@ Feature: Store Manager Add Product Feature
     Then store manager should see error message for taken sku "The sku has already been taken."
     And assert the the product wasn't added via API with name "Sample Book" and sku "3945165"
 
-  @Smoke @NegativeAddProduct @NegativeNumbers @ZeroNumbers @KnownIssue
+  @NegativeAddProduct @NegativeNumbers @ZeroNumbers @KnownIssue
   Scenario Outline: Store Manager fails to add a new product due to negative numbers input
     Given store manager is logged in
     When store manager navigates to Products section
@@ -102,7 +102,7 @@ Feature: Store Manager Add Product Feature
       | 10    |  | 0     | 10       | 00013 | stock           |  |
       | 0     |  | 0     | 10       | 00014 | price, stock    |  |
 
-  @Smoke @NegativeAddProduct @InvalidImageFormat
+  @NegativeAddProduct @InvalidImageFormat
   Scenario: Store Manager fails to add a new product duo to invalid image format
     Given store manager is logged in
     When store manager navigates to Products section
@@ -117,21 +117,21 @@ Feature: Store Manager Add Product Feature
     Then store manager should see error message for invalid image format "The image field must be a file of type: jpeg, png, jpg, gif, svg."
     And assert the the product wasn't added via API with name "Sample Book" and sku "00015"
 
-  @Smoke @PositiveAddProduct @PageTitle @KnownIssue
+  @PositiveAddProduct @PageTitle @KnownIssue
   Scenario: Verify Add product page title
     Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
     Then store manager should see the page title is "Add Product"
 
-  @Smoke @PositiveAddProduct @ClickableFields
+  @PositiveAddProduct @ClickableFields
   Scenario: Verify all fields are clickable in add product page
     Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
     Then store manager should be able to click all input fields on Add Product page
 
-  @Smoke @PositiveAddProduct @VisibleFields
+  @PositiveAddProduct @VisibleFields
   Scenario: Verify all fields are visible in add product page
     Given store manager is logged in
     When store manager navigates to Products section
