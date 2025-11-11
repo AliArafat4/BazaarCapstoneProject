@@ -23,7 +23,7 @@ public class AddProductsSteps {
 
     @Given("store manager is logged in")
     public void storeManagerIsLoggedIn() {
-        Assert.assertTrue(allPages.getStoreManagerDashboardPage().isDashboardButtonDisplayed());
+        Assert.assertTrue(allPages.getStoreManagerDashboardPage().isStoreManagerHeaderDisplayed());
     }
 
     @When("store manager navigates to Products section")
