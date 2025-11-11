@@ -4,6 +4,7 @@ import com.bazaarstores.pages.BasePage;
 import com.bazaarstores.utilities.ConfigReader;
 import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 public class AdminUsersPage extends BasePage {
@@ -61,7 +62,8 @@ public class AdminUsersPage extends BasePage {
     }
 
     public void clickEditButton(){
-        click(editButton);
+       // click(editButton);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(editButton));
     }
 
     public boolean editUsersIsVisible() {
@@ -69,7 +71,8 @@ public class AdminUsersPage extends BasePage {
     }
 
     public void clickDeleteButton(){
-        click(deleteButton);
+        //click(deleteButton);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(deleteButton));
     }
 
     public void clickConfirmDeleteButton(){

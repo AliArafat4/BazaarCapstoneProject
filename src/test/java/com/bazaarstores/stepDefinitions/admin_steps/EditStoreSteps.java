@@ -1,28 +1,20 @@
 package com.bazaarstores.stepDefinitions.admin_steps;
 
 import com.bazaarstores.pages.AllPages;
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import static com.bazaarstores.stepDefinitions.admin_steps.deleteStoreSteps.storeName;
+import static com.bazaarstores.stepDefinitions.admin_steps.DeleteStoreSteps.storeName;
 import static com.bazaarstores.utilities.ApiUtilities.spec;
 import static com.bazaarstores.utilities.Driver.getDriver;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class editStoreSteps {
+public class EditStoreSteps {
 
     AllPages allPages=new AllPages();
     static String newStoreName;
@@ -126,8 +118,8 @@ public class editStoreSteps {
 
     @And("the admin edits the store, updating the {string} field with value {string}")
     public void theAdminEditsTheStoreUpdatingTheFieldWithValue(String field, String value) {
-        editStoreSteps.value =value;
-        editStoreSteps.field =field;
+        EditStoreSteps.value =value;
+        EditStoreSteps.field =field;
         allPages.getAddStorePage().updateOneField(field,value);
     }
 }
