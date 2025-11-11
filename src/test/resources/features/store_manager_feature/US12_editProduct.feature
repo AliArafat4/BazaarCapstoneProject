@@ -139,7 +139,7 @@ Feature:
     And assert the product wasn't edited via API with "sku" "" and sku "00031"
     And delete product via api by using SKU to find its id "00031"
 
-  @Smoke @NegativeEditProduct @NegativeEditSKU @TakenSKU
+  @NegativeEditProduct @NegativeEditSKU @TakenSKU
   Scenario: Store Manager fails to edit product duo to empty SKU
     Given product is available in the list with name "sample book14", price "10", stock "10", and sku "00032"
     Then assert the new product via API with name "sample book14" and sku "00032"

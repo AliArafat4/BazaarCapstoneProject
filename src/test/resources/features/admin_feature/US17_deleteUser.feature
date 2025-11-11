@@ -7,7 +7,7 @@ Feature: delete a from the system
     And user clicks login button
     Then admin should be logged in successfully
 
-  @US17TC01 @Positive @KnownIssue
+  @US17TC01 @Positive @KnownIssue @Smoke
   Scenario: Admin can delete a user successfully
     Given the intended user exists
     When admin locate the intended user by email
@@ -24,7 +24,7 @@ Feature: delete a from the system
     And click on cancel button to cancel the deletion
     Then confirm deletion failure via API
 
-    @US17TC03 @Positive
+    @US17TC03 @Positive @Smoke
       Scenario: Verify delete button is visible and clickable
       When admin navigates to the Users page
       Then admin should be able to see the delete buttons

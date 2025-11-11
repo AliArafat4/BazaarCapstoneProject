@@ -7,7 +7,7 @@ Feature: Edit user's data
     And user clicks login button
     Then admin should be logged in successfully
 
-  @US16TC01 @Positive
+  @US16TC01 @Positive @Smoke
   Scenario: Admin can update user's Name successfully
     Given the intended user exists
     When admin locate the intended user by email
@@ -27,7 +27,7 @@ Feature: Edit user's data
     Then a success message should appear to confirm update
     And assert the role update via API
 
-  @US16TC03 @Positive
+  @US16TC03 @Positive @Smoke
   Scenario: Admin can update user's Email successfully
     Given the intended user exists
     When admin locate the intended user by email
@@ -37,7 +37,7 @@ Feature: Edit user's data
     Then a success message should appear to confirm update
     And assert the email update via API
 
-  @InvalidEmailUpdate @Negative @zz
+  @InvalidEmailUpdate @Negative
   Scenario Outline: Update user's Email to invalid format
     Given the intended user exists
     When admin locate the intended user by email
@@ -64,14 +64,14 @@ Feature: Edit user's data
     And assert the email update without domain extension failed via API
 
 
-  @US16TC06 @Positive
+  @US16TC06 @Positive @Smoke
   Scenario: Verify edit button is visible and clickable
     When admin navigates to the Users page
     Then admin should be able to see the edit buttons
     When clicks on edit button for any user
     Then admin should navigates to the Edit Users page
 
-    @US16TC04 @Positive
+    @US16TC04 @Positive @Smoke
       Scenario: Admin can update user's password successfully
       Given the intended user exists
       When admin locate the intended user by email
