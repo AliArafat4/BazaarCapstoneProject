@@ -1,4 +1,4 @@
-@EditUser @TestZahra
+@EditUser @Regression
 Feature: Edit user's data
 
   Background:
@@ -82,17 +82,6 @@ Feature: Edit user's data
       Then a success message should appear to confirm update
       And assert the password update via API
 
-
-#  @US16TC04 @Positive
-#  Scenario: Admin can update user's password successfully
-#    Given the intended user exists
-#    When admin locate the intended user by email
-#    And click on edit button
-#    And update the password
-#    And rewrite the password in confirmation field
-#    And clicks on Submit button to confirm update
-#    Then a success message should appear to confirm update
-#    And assert the password update via API
 
   @US16TC05 @Negative @KnownIssue
   Scenario: Admin attempt to update user's password with mismatched confirmation
