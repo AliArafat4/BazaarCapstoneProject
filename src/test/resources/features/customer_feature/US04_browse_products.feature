@@ -25,6 +25,10 @@
   Scenario: Customer Can See Products Prices
     When customer can see products Prices
 
+    @US04TC05 @KnownIssue
+    Scenario: Customer Can See Products Descriptions
+      When customer can see products Descriptions
+
   @US04TC06
   Scenario: Customer Can See Products Images
     When customer can see products Images

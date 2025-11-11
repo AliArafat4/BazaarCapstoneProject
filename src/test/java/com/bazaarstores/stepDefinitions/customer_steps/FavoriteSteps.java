@@ -1,8 +1,14 @@
 package com.bazaarstores.stepDefinitions.customer_steps;
 
 import com.bazaarstores.pages.AllPages;
+import com.bazaarstores.utilities.Driver;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class FavoriteSteps {
 
@@ -63,4 +69,39 @@ public class FavoriteSteps {
         Assert.assertTrue("Product should be removed from My Favorites page",
                 allPages.getCustomerFavorite().isProductRemovedFromFavorites());
     }
+
+
+    @When("user clears all products from My Favorites if not already cleared")
+    public void user_clears_all_products_from_my_favorites_if_not_already_cleared() {
+        // اذهب لصفحة المفضلة
+        allPages.getCustomerFavorite().clickMyFavoritesLink();
+
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+
+        // تحقق إذا فيه منتجات
+        Long count = (Long) js.executeScript(
+                "return document.querySelectorAll('.product-card').length;"
+        );
+
+        while (count > 0) {
+            // اضغط على أول منتج لإزالته
+            js.executeScript(
+                    "document.querySelectorAll('.product-card .fav.favorite-icon')[0].click();"
+            );
+
+            // انتظر قليلًا حتى يتم تحديث الصفحة
+            try {
+                Thread.sleep(500); // نص ثانية
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // عد العناصر مرة ثانية
+            count = (Long) js.executeScript(
+                    "return document.querySelectorAll('.product-card').length;"
+            );
+        }
+    }
+
+
 }

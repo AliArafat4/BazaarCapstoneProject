@@ -1,6 +1,5 @@
 @Regression @EditProduct
-Feature:
-  Store Manager Edit Product Feature
+Feature: Store Manager Edit Product Feature
 
   Background:
     Given user is in home page
@@ -139,15 +138,15 @@ Feature:
     And assert the product wasn't edited via API with "sku" "" and sku "00031"
     And delete product via api by using SKU to find its id "00031"
 
-  @Smoke @NegativeEditProduct @NegativeEditSKU @TakenSKU
+  @NegativeEditProduct @NegativeEditSKU @TakenSKU
   Scenario: Store Manager fails to edit product duo to empty SKU
     Given product is available in the list with name "sample book14", price "10", stock "10", and sku "00032"
     Then assert the new product via API with name "sample book14" and sku "00032"
     When store manager clicks on Edit Product Button for "sample book14" product
-    And store manager change Product "sku" to "397497"
+    And store manager change Product "sku" to "3945165"
     And store manager clicks on Submit button
     Then store manager should see error message for taken sku "The sku has already been taken."
-    And assert the product wasn't edited via API with "name" "sample book14" and sku "397497"
+    And assert the product wasn't edited via API with "name" "sample book14" and sku "3945165"
     And delete product via api by using SKU to find its id "00032"
 
   @PositiveEditProduct @PositiveEditCategory
@@ -237,21 +236,18 @@ Feature:
 
   @PositiveAddProduct @PageTitle @KnownIssue
   Scenario: Verify Edit product page title
-    Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
     Then store manager should see the page title is "Edit Product"
 
   @PositiveAddProduct @ClickableFields
   Scenario: Verify all fields are clickable in add product page
-    Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
     Then store manager should be able to click all input fields on Add Product page
 
   @PositiveAddProduct @VisibleFields
   Scenario: Verify all fields are visible in add product page
-    Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
     Then store manager should be able to see all input fields on Add Product page

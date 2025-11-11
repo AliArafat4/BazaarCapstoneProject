@@ -79,4 +79,23 @@ public class RegistrationSteps {
 
         pages.getRegistrationPage().validateInvalidEmail();
     }
+    // Added missing step definitions for password and error message scenarios
+// lina
+
+    @When("user enters password for sign up {string}")
+    public void user_enters_password_for_sign_up(String password) {
+        pages.getRegistrationPage().enterPassword(password);
+    }
+
+    @When("user enters confirm password for sign up {string}")
+    public void user_enters_confirm_password_for_sign_up(String confirmPassword) {
+        pages.getRegistrationPage().enterPasswordConfirmation(confirmPassword);
+    }
+
+    @Then("user should see error message {string}")
+    public void user_should_see_error_message(String expectedMessage) {
+        String actualMessage = pages.getRegistrationPage().getErrorMessageText();
+        org.junit.Assert.assertEquals("Error message did not match", expectedMessage, actualMessage);
+    }
+
 }

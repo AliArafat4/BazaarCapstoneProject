@@ -7,6 +7,10 @@ Feature: Mark Products as Favorites as a Customer
     And user clicks login button
     And user should be logged in successfully
 
+  @Setup
+  Scenario: Clear all products from My Favorites before running tests
+    When user clears all products from My Favorites if not already cleared
+
   @US07_TC001 @Smoke
   Scenario: Verify that the heart icon appears on hover and can be marked as favorite
     When user hovers and clicks heart icon on product 1

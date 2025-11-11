@@ -50,5 +50,11 @@ public class RegistrationPage extends BasePage {
 
         return this;
     }
+    private final By errorMessage = By.xpath("//*[contains(text(),'field') or contains(@class,'error') or contains(@class,'toast')]");
+
+    // Method to get error message text
+    public String getErrorMessageText() {
+        return getText(errorMessage);
+    }
 
 }
