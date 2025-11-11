@@ -7,7 +7,7 @@ Feature: Mark Products as Favorites as a Customer
     And user clicks login button
     And user should be logged in successfully
 
-  @US07_TC001
+  @US07_TC001 @Smoke
   Scenario: Verify that the heart icon appears on hover and can be marked as favorite
     When user hovers and clicks heart icon on product 1
     Then heart icon should appear on product 1
@@ -20,7 +20,7 @@ Feature: Mark Products as Favorites as a Customer
     And user clicks the heart icon again on the same product
     Then error message should be displayed "Product is already in favorites."
 
-  @US07_TC003
+  @US07_TC003 @Smoke
   Scenario: Verify that the user can favorite a second product
     When user hovers and clicks heart icon on product 2
     Then heart icon should turn red for product 2

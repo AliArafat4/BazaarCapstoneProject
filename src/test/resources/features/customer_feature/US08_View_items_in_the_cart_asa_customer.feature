@@ -7,7 +7,12 @@ Feature: US08 - View items in the cart as a customer
     And user clicks login button
     And user should be logged in successfully
 
-  @US08_TC001
+  @Setup
+  Scenario: Add 3 products to cart before running tests
+    Given customer adds multiple different products to the cart
+
+
+  @US08_TC001 @Smoke
   Scenario: Verify that hovering over the cart icon displays the mini cart with all items, prices, and total
     When User hovers over the cart icon
     Then The mini cart should appear with all items, prices, and total cost
@@ -18,7 +23,7 @@ Feature: US08 - View items in the cart as a customer
     When User hovers over the cart icon
     And User removes an item from the mini cart
 
-  @US08_TC003
+  @US08_TC003 @Smoke
   Scenario: Verify that clicking View Cart button navigates to the full cart page
     When User hovers over the cart icon
     And User clicks the View Cart button
