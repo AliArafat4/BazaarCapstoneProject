@@ -19,7 +19,7 @@
         When customer clicks on Add to Cart button for a product
         Then the cart count should increase by one
 
-      @US06TC03
+      @US06TC03 @Smoke
       Scenario: Click on "Add to Cart" button for a product
         When customer clicks on Add to Cart button for a product
         Then the product should be added to the cart

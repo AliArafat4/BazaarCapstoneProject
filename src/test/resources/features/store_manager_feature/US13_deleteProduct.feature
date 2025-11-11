@@ -19,7 +19,7 @@ Feature: Store Manager Delete Product Feature
     And assert the deleted product via API with sku "00040"
 
 
-  @Smoke @PositiveDeleteProduct @PositiveDeletionMessage
+  @PositiveDeleteProduct @PositiveDeletionMessage
   Scenario: Store Manager attempts to delete product and get delete dialogue message
     Given product is available in the list with name "sample book23", price "10", stock "10", and sku "00041"
     Then assert the new product via API with name "sample book23" and sku "00041"
@@ -30,7 +30,7 @@ Feature: Store Manager Delete Product Feature
     Then store manager should see success message for deleting a product
     And assert the deleted product via API with sku "00041"
 
-  @Smoke @PositiveDeleteProduct @PositiveDeleteCancel
+  @PositiveDeleteProduct @PositiveDeleteCancel
   Scenario: Store Manager attempts to delete product and then cancels
     Given product is available in the list with name "sample book24", price "10", stock "10", and sku "00042"
     Then assert the new product via API with name "sample book24" and sku "00042"

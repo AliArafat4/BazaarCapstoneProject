@@ -1,4 +1,4 @@
-@Admin
+@Admin @Regression
 Feature: Delete a store as an Admin
 
 

@@ -1,4 +1,4 @@
-@Admin @AddStore
+@Admin @AddStore @Regression
 Feature: Add a new store as an Admin.
   1- Admin can add a new store with valid inputs.
   2- Missing fields show an error. (Name, Description, Location, Admins)
@@ -11,7 +11,7 @@ Feature: Add a new store as an Admin.
     And user clicks login button
     Then admin should be logged in successfully
 
-  @Positive
+  @Positive @Smoke
   Scenario Outline: Verify that an Admin can add a new store with valid inputs
     When the admin clicks on the Stores button
     And clicks on the Add Store button
