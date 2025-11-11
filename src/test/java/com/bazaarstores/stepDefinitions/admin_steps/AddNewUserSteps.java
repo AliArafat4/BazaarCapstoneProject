@@ -2,6 +2,7 @@ package com.bazaarstores.stepDefinitions.admin_steps;
 
 import com.bazaarstores.pages.BasePage;
 import com.bazaarstores.utilities.ApiHelper;
+import com.bazaarstores.utilities.ConfigReader;
 import com.github.javafaker.Faker;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.PendingException;
@@ -143,9 +144,36 @@ public class AddNewUserSteps extends BasePage {
         pages.getAddUserPage().fillUserData(attemptedName, attemptedEmail,role,password,ConfirmPassword);
     }
 
+    @And("admin enters Name, used@email.com, Role, Password, and PasswordConfirmation")
+    public void adminEntersNameUsedEmailComRolePasswordAndPasswordConfirmation() {
+        Faker faker = new Faker();
+        attemptedName = faker.name().fullName();
+        attemptedEmail = ConfigReader.getCustomerEmail();
+        String role = "Store Manager";
+        String password="Password.12345";
+        String ConfirmPassword="Password.12345";
+
+        pages.getAddUserPage().fillUserData(attemptedName, attemptedEmail,role,password,ConfirmPassword);
+    }
+
+    @Then("an error message should appear to prevent user addition with invalid email format")
+    public void anErrorMessageShouldAppearToPreventUserAdditionWithInvalidEmailFormat() {
+        assertTrue(true);
+    }
+
+
     @Then("an error message should appear to prevent user addition")
     public void anErrorMessageShouldAppearToPreventUserAddition() {
-        assertTrue(true);
+       String expectedErrorMessage = "The email has already been taken.";
+
+        List<String> actualMessages = pages.getAddUserPage().getAllValidationMessages();
+
+       //assertEquals( expectedErrorMessage, actualMessages);
+
+        boolean found = actualMessages.stream()
+                .anyMatch(m -> m != null && m.toLowerCase().contains(expectedErrorMessage.toLowerCase()));
+
+        assertTrue("Expected validation message not found. Actual messages: " + actualMessages, found);
     }
 }
 

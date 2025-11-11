@@ -7,8 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BazaarCapstoneProject" />
-        <module name="BazaarStoreTrial" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="BazaarStoreTrial" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
