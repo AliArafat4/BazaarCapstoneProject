@@ -3,6 +3,7 @@ package com.bazaarstores.pages.admin_pages;
 import com.bazaarstores.pages.BasePage;
 import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -113,7 +114,7 @@ public class AdminDashboardPage extends BasePage {
     //Youmna's addition
     public ViewUsersPage clickUsersMenu() {
 
-        Driver.getDriver().findElement(usersButton).click();
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(usersButton));
         return new ViewUsersPage();
     }
 }

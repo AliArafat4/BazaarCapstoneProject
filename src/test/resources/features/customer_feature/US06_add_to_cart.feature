@@ -7,9 +7,6 @@
         And user clicks login button
         And user should be logged in successfully
 
-
-
-
       @US06TC01
       Scenario: Cart count initially zero for customer
         Then cart count should be zero for the customer at the start

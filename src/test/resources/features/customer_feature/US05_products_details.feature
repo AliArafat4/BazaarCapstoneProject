@@ -7,8 +7,6 @@
       And user clicks login button
       And user should be logged in successfully
 
-
-
     @US05TC01 @KnownIssue
     Scenario: User clicks on a product to open details page
       When customer clicks on a product to open details page
@@ -34,7 +32,6 @@
     Scenario: User can see product image on details page
       When customer clicks on a product to open details page
       Then customer can see product image on details page
-
 
     @US05TC06 @KnownIssue
     Scenario: User can see product details for the product selected
