@@ -1,4 +1,4 @@
-@Admin @EditStore
+@Admin @EditStore @Regression
 Feature: Edit existing store details as an Admin.
 
 

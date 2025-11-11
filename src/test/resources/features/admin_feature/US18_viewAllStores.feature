@@ -1,4 +1,4 @@
-@Admin
+@Admin @Regression
 Feature:Admin can view all stores.
 
 
