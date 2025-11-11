@@ -36,8 +36,10 @@ public class ProductsPage extends BasePage {
         By editButton = By.xpath("//tbody/tr[td[normalize-space(.)='" + productName + "']]/td[6]/button[1]");
 
 //        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(editButton));
-                scrollToElement(editButton);
+        scrollToElement(editButton);
         waitUntilElementIsFullyInView(editButton, 5);
+        waitForElementToBeClickable(editButton);
+
         click(editButton);
         return this;
     }
@@ -63,6 +65,7 @@ public class ProductsPage extends BasePage {
 //        scrollToElement(deleteButton);
 //        waitUntilElementIsFullyInView(deleteButton, 5);
 //        click(deleteButton);
+        waitForElementToBeClickable(deleteButton);
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", Driver.getDriver().findElement(deleteButton));
 
 
