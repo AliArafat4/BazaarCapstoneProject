@@ -9,7 +9,7 @@
 
 
 
-    @US05TC01
+    @US05TC01 @Smoke
     Scenario: User clicks on a product to open details page
       When customer clicks on a product to open details page
       Then customer should see product details page
