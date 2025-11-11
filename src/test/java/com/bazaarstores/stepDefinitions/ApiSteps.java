@@ -254,6 +254,7 @@ public class ApiSteps {
     public void assertTheEmailUpdateFailedViaAPI() {
         Response response = given(spec()).get("/users");
         JsonPath jsonPath = response.jsonPath();
+
         List<String> allEmails = jsonPath.getList("email");
 
         assertFalse(
