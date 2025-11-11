@@ -3,6 +3,8 @@ package com.bazaarstores.pages.login_pages;
 import com.bazaarstores.pages.BasePage;
 import com.bazaarstores.pages.DashboardPage;
 import com.bazaarstores.pages.register_pages.RegistrationPage;
+import com.bazaarstores.utilities.ConfigReader;
+import com.bazaarstores.utilities.Driver;
 import org.openqa.selenium.By;
 
 public class LoginPage extends BasePage {
@@ -43,6 +45,7 @@ public class LoginPage extends BasePage {
         return clickLoginButton();
     }
 
+
     // Verification Methods
     public boolean isLoginPageDisplayed() {
         return isDisplayed(emailInput) && isDisplayed(passwordInput);
@@ -70,4 +73,16 @@ public class LoginPage extends BasePage {
         String validationMessage = getValidationMessage(field);
         return validationMessage != null && !validationMessage.isEmpty();
     }
+
+    // Navigates directly to the Login Page using the URL defined in the configuration file.
+    public void navigateToLoginPage() {
+        if (Driver.getDriver() == null) {   // Ensure driver is initialized
+            Driver.getDriver();             // Initialize if not done
+        }
+        String url = ConfigReader.getBaseUrl();
+        System.out.println("Navigating to: " + url);
+        Driver.getDriver().get(url);
+    }
+
+
 }
