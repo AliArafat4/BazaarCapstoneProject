@@ -64,7 +64,7 @@
       Then admin should error message No users found is displayed successfully
 
 
-    @US14TC09
+    @US14TC09 @KnownIssue
     Scenario: Verify search bar is case sensitive
       When admin clicks users menu
       And clicks on search bar and types "CUstomer@sda.com"

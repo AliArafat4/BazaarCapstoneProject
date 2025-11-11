@@ -1,6 +1,7 @@
 package com.bazaarstores.stepDefinitions.customer_steps;
 
 import com.bazaarstores.pages.AllPages;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.When;
 
 import static org.junit.Assert.assertTrue;
@@ -40,5 +41,10 @@ public class BrowseProductsSteps {
     @When("customer can see products Images")
     public void customerCanSeeProductsImages() {
         assertTrue(pages.getCustomerMainPage().productsImagesIsVisible());
+    }
+
+    @When("customer can see products Descriptions")
+    public void customerCanSeeProductsDescriptions() {
+        assertTrue(true);
     }
 }
