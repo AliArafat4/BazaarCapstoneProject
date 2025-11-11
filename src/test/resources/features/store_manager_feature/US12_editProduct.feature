@@ -34,7 +34,7 @@ Feature:
     And delete product via api by using SKU to find its id "00021"
 
 
-  @Smoke @PositiveEditProduct @PositiveEditPrice
+  @PositiveEditProduct @PositiveEditPrice
   Scenario: Store Manager edits a product price successfully
     Given product is available in the list with name "sample book3", price "10", stock "10", and sku "00022"
     Then assert the new product via API with name "sample book3" and sku "00022"
@@ -47,7 +47,7 @@ Feature:
     And assert the edited product via API with "price" "20.00" and sku "00022"
     And delete product via api by using SKU to find its id "00022"
 
-  @Smoke @NegativeEditProduct @NegativeEditPrice @EmptyPrice
+  @NegativeEditProduct @NegativeEditPrice @EmptyPrice
   Scenario: Store Manager fails to edits a product duo to empty price
     Given product is available in the list with name "sample book5", price "10", stock "10", and sku "00024"
     Then assert the new product via API with name "sample book5" and sku "00024"
@@ -59,8 +59,7 @@ Feature:
     And delete product via api by using SKU to find its id "00024"
 
 
-#    TODO: MAKE IT PASS
-  @Smoke @NegativeEditProduct @NegativeEditPrice @KnownIssue @ZeroAndNegativeEditPrice
+  @NegativeEditProduct @NegativeEditPrice @KnownIssue @ZeroAndNegativeEditPrice
   Scenario Outline: Store Manager fails to edits a product price duo to negative or zero price
     Given product is available in the list with name "<book name>", price "10", stock "10", and sku "<sku>"
     Then assert the new product via API with name "<book name>" and sku "<sku>"
@@ -75,8 +74,7 @@ Feature:
       | sample book6 | 0.00        | 00023 |  |
       | sample book7 | -20.00      | 00124 |  |
 
-    ###########################################
-  @Smoke @PositiveEditProduct @PositiveEditStock
+  @PositiveEditProduct @PositiveEditStock
   Scenario: Store Manager edits a product stock successfully
     Given product is available in the list with name "sample book8", price "10", stock "10", and sku "00025"
     Then assert the new product via API with name "sample book8" and sku "00025"
@@ -89,7 +87,7 @@ Feature:
     And assert the edited product via API with "stock" "20" and sku "00025"
     And delete product via api by using SKU to find its id "00025"
 
-  @Smoke @NegativeEditProduct @NegativeEditStock @EmptyStock
+  @NegativeEditProduct @NegativeEditStock @EmptyStock
   Scenario: Store Manager fails to edit product duo to empty stock
     Given product is available in the list with name "sample book9", price "10", stock "10", and sku "00026"
     Then assert the new product via API with name "sample book9" and sku "00026"
@@ -101,8 +99,7 @@ Feature:
     And delete product via api by using SKU to find its id "00026"
 
 
-#    TODO: MAKE IT PASS
-  @Smoke @NegativeEditProduct @NegativeEditStock @KnownIssue @ZeroAndNegativeEditStock
+  @NegativeEditProduct @NegativeEditStock @KnownIssue @ZeroAndNegativeEditStock
   Scenario Outline: Store Manager fails to edit product duo to negative or zero stock
     Given product is available in the list with name "<book name>", price "10", stock "10", and sku "<sku>"
     Then assert the new product via API with name "<book name>" and sku "<sku>"
@@ -153,7 +150,7 @@ Feature:
     And assert the product wasn't edited via API with "name" "sample book14" and sku "397497"
     And delete product via api by using SKU to find its id "00032"
 
-  @Smoke @PositiveEditProduct @PositiveEditCategory
+  @PositiveEditProduct @PositiveEditCategory
   Scenario: Store Manager edits a product Category successfully
     Given product is available in the list with name "sample book15", price "10", stock "10", and sku "00033"
     Then assert the new product via API with name "sample book15" and sku "00033"
@@ -166,7 +163,7 @@ Feature:
     And assert the edited product via API with "category_id" "2" and sku "00033"
     And delete product via api by using SKU to find its id "00033"
 
-  @Smoke @PositiveEditProduct @PositiveEditManufacturer
+  @PositiveEditProduct @PositiveEditManufacturer
   Scenario: Store Manager edits a product Manufacturer successfully
     Given product is available in the list with name "sample book16", price "10", stock "10", and sku "00034"
     Then assert the new product via API with name "sample book16" and sku "00034"
@@ -190,7 +187,7 @@ Feature:
     And assert the edited product via API with "image_url" "book.png" and sku "00035"
     And delete product via api by using SKU to find its id "00035"
 
-  @Smoke @NegativeEditProduct @NegativeEditImage
+  @NegativeEditProduct @NegativeEditImage
   Scenario: Store Manager edits a product Image successfully
     Given product is available in the list with name "sample book18", price "10", stock "10", and sku "00036"
     Then assert the new product via API with name "sample book18" and sku "00036"
@@ -202,7 +199,7 @@ Feature:
     And assert the product wasn't edited via API with "image_url" "book.txt" and sku "00036"
     And delete product via api by using SKU to find its id "00036"
 
-  @Smoke @PositiveEditProduct @PositiveEditDiscount
+  @PositiveEditProduct @PositiveEditDiscount
   Scenario: Store Manager edits a product Discount successfully
     Given product is available in the list with name "sample book19", price "10", stock "10", and sku "00037"
     Then assert the new product via API with name "sample book19" and sku "00037"
@@ -226,7 +223,7 @@ Feature:
     And assert the product wasn't edited via API with "discount" "-20" and sku "00038"
     And delete product via api by using SKU to find its id "00038"
 
-  @Smoke @PositiveEditProduct @PositiveEditDescription
+  @PositiveEditProduct @PositiveEditDescription
   Scenario: Store Manager edits a product Description successfully
     Given product is available in the list with name "sample book21", price "10", stock "10", and sku "00039"
     Then assert the new product via API with name "sample book21" and sku "00039"
@@ -238,21 +235,21 @@ Feature:
     And assert the edited product via API with "description" "New Description" and sku "00039"
     And delete product via api by using SKU to find its id "00039"
 
-  @Smoke @PositiveAddProduct @PageTitle @KnownIssue
+  @PositiveAddProduct @PageTitle @KnownIssue
   Scenario: Verify Edit product page title
     Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
     Then store manager should see the page title is "Edit Product"
 
-  @Smoke @PositiveAddProduct @ClickableFields
+  @PositiveAddProduct @ClickableFields
   Scenario: Verify all fields are clickable in add product page
     Given store manager is logged in
     When store manager navigates to Products section
     And store manager clicks on ADD PRODUCT button
     Then store manager should be able to click all input fields on Add Product page
 
-  @Smoke @PositiveAddProduct @VisibleFields
+  @PositiveAddProduct @VisibleFields
   Scenario: Verify all fields are visible in add product page
     Given store manager is logged in
     When store manager navigates to Products section

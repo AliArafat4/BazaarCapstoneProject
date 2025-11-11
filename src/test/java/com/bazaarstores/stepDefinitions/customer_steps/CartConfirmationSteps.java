@@ -22,10 +22,16 @@ public class CartConfirmationSteps {
         cartPage.clickOkButton();
     }
 
+//    @Then("The View Cart button should not be visible")
+//    public void the_view_cart_button_should_not_be_visible() {
+//        Assert.assertFalse("View Cart button should be hidden", cartPage.isViewCartButtonVisible());
+//    }
+
     @Then("The View Cart button should not be visible")
     public void the_view_cart_button_should_not_be_visible() {
         Assert.assertFalse("View Cart button should be hidden", cartPage.isViewCartButtonVisible());
     }
+
 
 
     @Given("User has not added any product to the cart")
@@ -37,6 +43,8 @@ public class CartConfirmationSteps {
             cartPage.clickOkButton();
         }
     }
+
+
 
 
 }

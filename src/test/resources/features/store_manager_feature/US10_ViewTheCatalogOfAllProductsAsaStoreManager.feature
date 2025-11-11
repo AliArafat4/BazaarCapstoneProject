@@ -6,13 +6,13 @@ Feature: View the catalog of all products as a Store Manager
     When user enters email "storemanager@sda.com" and password "Password.12345"
     And user clicks login button
 
-  @US010_TC001
+  @US010_TC001 @Smoke
   Scenario: Verify that the store manager can view the Products page from the sidebar
 #    Given User is logged in as Store Manager
     When User clicks on "Products" from the sidebar
     Then Products page loads showing a list of products
 
-  @US010_TC002
+  @US010_TC002 @Smoke
   Scenario: Verify that all product columns are visible
     Given User is on Products page
     Then All columns Name, Price, Stock, Category, Image, Action are visible

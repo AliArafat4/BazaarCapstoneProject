@@ -3,7 +3,7 @@ Feature:Admin can view all stores.
 
 
 
-  @Positive @KnownIssue @Smoke @Regression
+  @Positive @KnownIssue @Smoke
   Scenario: Verify that an Admin can view all stores in the system
     Given user goes to home page
     When user enters email "admin@sda.com" and password "Password.12345"
