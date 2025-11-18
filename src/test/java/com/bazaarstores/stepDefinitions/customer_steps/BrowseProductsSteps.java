@@ -45,6 +45,6 @@ public class BrowseProductsSteps {
 
     @When("customer can see products Descriptions")
     public void customerCanSeeProductsDescriptions() {
-        assertTrue(true);
+        assertTrue(pages.getCustomerMainPage().productsDescriptionIsVisible());
     }
 }
