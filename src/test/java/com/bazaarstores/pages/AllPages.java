@@ -1,5 +1,6 @@
 package com.bazaarstores.pages;
 
+import com.bazaarstores.pages.DashboardPage.DashboardPage;
 import com.bazaarstores.pages.admin_pages.AddEditStorePage;
 import com.bazaarstores.pages.admin_pages.AdminDashboardPage;
 

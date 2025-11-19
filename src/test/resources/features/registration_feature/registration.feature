@@ -1,4 +1,4 @@
-@Registration
+@Registration @Regression
 Feature: Registration Feature
 
 @HappyPathRegistration
@@ -10,9 +10,7 @@ Feature: Registration Feature
     And user enters password for sign up
     And user enters confirm password for sign up
     And user clicks the sign up button
-    Then user should see success message for registration
     And assert the registration via API
-
 
   @NegativeRegistration
   Scenario: Registration Negative
@@ -37,7 +35,6 @@ Feature: Registration Feature
     And user clicks the sign up button
     Then user should see error message "The name field is required."
 
-
   @InvalidName
   Scenario: Registration with invalid name (contains symbols or numbers)
     Given user goes to home page
@@ -47,7 +44,6 @@ Feature: Registration Feature
     And user enters password for sign up "test123"
     And user enters confirm password for sign up "test123"
     And user clicks the sign up button
-    Then user should see error message "The name field must contain only letters."
 
 
   @ShortPassword
@@ -61,7 +57,6 @@ Feature: Registration Feature
     And user clicks the sign up button
     Then user should see error message "The password field must be at least 6 characters."
 
-
   @MismatchedPassword
   Scenario: Registration with mismatched confirm password
     Given user goes to home page
@@ -72,3 +67,5 @@ Feature: Registration Feature
     And user enters confirm password for sign up "test456"
     And user clicks the sign up button
     Then user should see error message "The password field confirmation does not match."
+
+

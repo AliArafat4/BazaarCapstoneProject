@@ -1,7 +1,7 @@
-package com.bazaarstores.stepDefinitions;
+package com.bazaarstores.stepDefinitions.logout_steps;
 
 import com.bazaarstores.pages.AllPages;
-import com.bazaarstores.pages.DashboardLogoutPage;
+import com.bazaarstores.pages.DashboardPage.DashboardLogoutPage;
 import com.bazaarstores.utilities.ConfigReader;
 import com.bazaarstores.utilities.Driver;
 import io.cucumber.java.en.And;

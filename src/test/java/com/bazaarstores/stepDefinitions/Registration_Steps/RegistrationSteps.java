@@ -1,10 +1,9 @@
-package com.bazaarstores.stepDefinitions;
+package com.bazaarstores.stepDefinitions.Registration_Steps;
 
 import com.bazaarstores.pages.AllPages;
 import com.bazaarstores.utilities.ConfigReader;
 import com.bazaarstores.utilities.Driver;
 import com.github.javafaker.Faker;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -25,15 +24,14 @@ public class RegistrationSteps {
 
     @And("user enters email for sign up {string}")
     public void userEntersEmailForSignUp(String email) {
-        RegistrationSteps.email = Faker.instance().internet().emailAddress();
 
         if(email.equals("faker")){
+            RegistrationSteps.email = Faker.instance().internet().emailAddress();
             pages.getRegistrationPage().enterEmail(RegistrationSteps.email);
-        }else{
+        } else {
+            RegistrationSteps.email = email;
             pages.getRegistrationPage().enterEmail(email);
         }
-
-
     }
 
     @And("user enters full name for sign up {string}")
