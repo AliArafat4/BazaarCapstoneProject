@@ -1,9 +1,7 @@
-@Logout
+@Logout @Regression
 Feature: Logout Functionality
-
   Background:
     Given user is logged in and dashboard page is open
-
   @US03_TC001
   Scenario: Verify that the user can click "Log out" from the dashboard
     When user clicks the user icon on the top right
