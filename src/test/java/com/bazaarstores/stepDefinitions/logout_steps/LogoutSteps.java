@@ -1,4 +1,4 @@
-package com.bazaarstores.stepDefinitions.logout_steps;
+package com.bazaarstores.stepDefinitions;
 
 import com.bazaarstores.pages.AllPages;
 import com.bazaarstores.pages.DashboardLogoutPage;
@@ -14,6 +14,8 @@ public class LogoutSteps {
 
     AllPages allPages = new AllPages();
     DashboardLogoutPage logoutPage = new DashboardLogoutPage();
+
+    // DashboardLogoutPage logoutPage = allPages.getDashboardLogoutPage();
 
     @Given("user is logged in and dashboard page is open")
     public void user_is_logged_in_and_dashboard_page_is_open() {
